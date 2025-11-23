@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roopadeva | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              space: '#000000',
+              neon: {
+                purple: '#b026ff',
+                pink: '#ff007f',
+                blue: '#00eaff',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            animation: {
+              'moon-move': 'moonMove 60s linear infinite',
+              'star-drift': 'starDrift 20s linear infinite',
+              'girl-drop': 'girlDrop 10s linear infinite',
+              'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            },
+            keyframes: {
+              moonMove: {
+                '0%': { transform: 'translateX(-150px)' },
+                '100%': { transform: 'translateX(100vw)' },
+              },
+              starDrift: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-100%)' },
+              },
+              girlDrop: {
+                '0%': { top: '0%', opacity: '0' },
+                '10%': { opacity: '1' },
+                '90%': { opacity: '1' },
+                '100%': { top: '95%', opacity: '0' },
+              },
+              pulseGlow: {
+                '0%, 100%': { boxShadow: '0 0 10px #b026ff' },
+                '50%': { boxShadow: '0 0 25px #00eaff' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        background-color: #000000;
+        color: white;
+        overflow-x: hidden;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

@@ -9,19 +9,19 @@ const educationData: Education[] = [
     institution: "KSR College of Engineering, Tiruchengode",
     degree: "Bachelor of Engineering",
     score: "8.5 CGPA (Pursuing)",
-    imagePlaceholder: "https://images.unsplash.com/photo-1592280771884-f2869842f10b?auto=format&fit=crop&q=80&w=100&h=100" // Static College Image
+    imagePlaceholder: "ksrimage.jpg" // Static College Image
   },
   {
     institution: "Sri Vidya Mandir Matriculation Hr. Sec. School",
     degree: "HSC (Higher Secondary)",
     score: "181 Cutoff | 83.6%",
-    imagePlaceholder: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&q=80&w=100&h=100" // Static School Image
+    imagePlaceholder: "schimage.jpg" // Static School Image
   },
   {
     institution: "Sri Vidya Mandir Matriculation Hr. Sec. School",
     degree: "SSLC (Secondary)",
     score: "86.4%",
-    imagePlaceholder: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&q=80&w=100&h=100" // Static School Image
+    imagePlaceholder: "schimage.jpg" // Static School Image
   }
 ];
 

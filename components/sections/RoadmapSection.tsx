@@ -3,10 +3,10 @@ import { Milestone } from '../../types';
 
 const RoadmapSection: React.FC = () => {
   const [milestones] = useState<Milestone[]>([
-    { title: "Complete Project X", date: "2025-Q4", completed: false },
-    { title: "Master Kubernetes", date: "2025-Q2", completed: false },
-    { title: "Publish Research Paper", date: "2025-Q3", completed: false },
-    { title: "Advanced NLP Cert", date: "2024-Q4", completed: true },
+    { title: "HTML", date: "july", completed: false },
+    { title: "CSS", date: "august", completed: false },
+    { title: "JS", date: "august", completed: false },
+    { title: "n8n WORKFLOW", date: "october", completed: true },
   ]);
 
   return (
@@ -26,19 +26,19 @@ const RoadmapSection: React.FC = () => {
           </h3>
           <ul className="space-y-4 flex-1 overflow-y-auto pr-2 custom-scrollbar">
             <li className="flex items-center gap-3 text-gray-300">
-              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> System Design Patterns
+              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> REACT JS Advanced Concepts
             </li>
             <li className="flex items-center gap-3 text-gray-300">
-              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> Rust for Low-level Tooling
+              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> PYTHON FOR AI
             </li>
             <li className="flex items-center gap-3 text-gray-300">
-              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> Graph Neural Networks
+              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> DATABASE
             </li>
             <li className="flex items-center gap-3 text-gray-300">
-              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> Cloud Native Architectures
+              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> DATA STRUCTURES & ALGORITHMS
             </li>
             <li className="flex items-center gap-3 text-gray-300">
-              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> Generative AI Agents
+              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> GENERATING AI AGENTS
             </li>
           </ul>
         </div>

@@ -293,7 +293,7 @@ const HomeSection: React.FC = () => {
                         <div className="w-full h-full overflow-hidden rounded-lg border-2 border-black">
                             <img 
                                 src="portimage.jpg"
-                                alt="Devaroopa E Profile" 
+                                alt="DevaroopaEProfile" 
                                 className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
                             />
                         </div>

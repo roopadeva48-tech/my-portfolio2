@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import ChatWidget from '../ChatWidget';
+import AboutSection from './AboutSection';
 
 // NOTE: I added titles to the missing certificate to make the display more complete.
 const certificates = [
@@ -104,6 +106,7 @@ const CertificateSection: React.FC = () => {
           onClose={handleCloseModal} 
         />
       )}
+      
     </div>
   );
 };

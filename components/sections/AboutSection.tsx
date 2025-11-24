@@ -107,7 +107,8 @@ const AboutSection: React.FC = () => {
           <h3 className="text-xl font-semibold text-neon-blue uppercase tracking-widest">Education Path</h3>
           <div className="space-y-4">
             {educationData.map((edu, idx) => (
-              <div key={idx} className="bg-white/5 border border-white/10 p-4 rounded-lg flex items-center gap-4 hover:bg-white/10 transition-colors">
+              // 💥 MODIFIED CODE START: Removed box and border classes 💥
+              <div key={idx} className="flex items-center gap-4 py-2 border-b border-white/5 last:border-b-0">
                 <div className="flex-shrink-0 w-16 h-16 rounded-full overflow-hidden border-2 border-neon-purple/50">
                   <img src={edu.imagePlaceholder} alt="Institution" className="w-full h-full object-cover" />
                 </div>
@@ -117,6 +118,7 @@ const AboutSection: React.FC = () => {
                   <p className="text-neon-pink text-xs font-mono mt-1">{edu.score}</p>
                 </div>
               </div>
+              // 💥 MODIFIED CODE END 💥
             ))}
           </div>
         </div>

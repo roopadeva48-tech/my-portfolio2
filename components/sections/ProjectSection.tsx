@@ -6,21 +6,21 @@ const projects: (Project & { imageUrl: string })[] = [
   {
     title: "Krishi Sakthi",
     description: "An AI-powered agricultural assistant helping farmers with crop disease detection and yield prediction using advanced computer vision models.",
-    link: "#",
+    link: "https://krishi-sakhi-innovix-yp7whczthex5zaachik6gu.streamlit.app/",
     tags: ["Python", "TensorFlow", "React", "FastAPI"],
     imageUrl: "https://images.unsplash.com/photo-1625246333195-58197bd47d26?auto=format&fit=crop&q=80&w=600&h=400"
   },
   {
     title: "RAG CHATBOT",
     description: "Retrieval-Augmented Generation chatbot capable of ingesting custom documents to provide context-aware answers with high accuracy.",
-    link: "#",
+    link: "https://roopadeva48-tech.github.io/N8n_chatbot/)",
     tags: ["LangChain", "OpenAI", "Pinecone", "Next.js"],
     imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=600&h=400"
   },
   {
     title: "my-utility-toolkit",
     description: "A comprehensive CLI and Web toolkit for developers offering rapid data formatting, regex testing, and file conversion utilities.",
-    link: "#",
+    link: "https://roopadeva48-tech.github.io/my-utility-toolkit/",
     tags: ["TypeScript", "Node.js", "Rust", "WebAssembly"],
     imageUrl: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=600&h=400"
   }

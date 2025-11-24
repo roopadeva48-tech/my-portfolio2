@@ -66,42 +66,44 @@ const App: React.FC = () => {
 
       {/* Navigation Dock (No Click, Hover Triggered) */}
       <nav className="fixed bottom-0 md:bottom-auto md:left-0 md:top-0 w-full md:w-20 h-20 md:h-full z-50 bg-black/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border-t md:border-t-0 md:border-r border-white/10 flex md:flex-col items-center justify-center gap-2 md:gap-8 px-4 md:px-0">
-         {/* Vertical Line Decoration */}
-         <div className="hidden md:block absolute right-0 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-neon-purple to-transparent opacity-50"></div>
+          {/* Vertical Line Decoration */}
+          <div className="hidden md:block absolute right-0 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-neon-purple to-transparent opacity-50"></div>
 
-         {navItems.map((item) => (
-           <div
-             key={item.id}
-             className="group relative flex items-center justify-center"
-             onMouseEnter={() => setActiveSection(item.id)}
-           >
-             {/* Hover Area Helper to make triggering easier */}
-             <div className="absolute inset-[-10px] cursor-pointer" />
-
-             {/* Icon Circle */}
-             <div 
-                className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-300 relative overflow-hidden
-                ${activeSection === item.id 
-                  ? 'bg-neon-purple text-white border border-neon-purple shadow-[0_0_15px_rgba(176,38,255,0.6)] scale-110' 
-                  : 'bg-black text-gray-500 border border-gray-700 hover:border-neon-blue hover:text-neon-blue'
-                }`}
+          {navItems.map((item) => (
+             <div
+               key={item.id}
+               className="group relative flex items-center justify-center"
+               onMouseEnter={() => setActiveSection(item.id)}
              >
-                {item.icon}
-             </div>
+               {/* Hover Area Helper to make triggering easier */}
+               <div className="absolute inset-[-10px] cursor-pointer" />
 
-             {/* Label Tooltip (Appears on Hover) */}
-             <span className={`
-                absolute md:left-16 -top-10 md:top-auto bg-black border border-neon-blue/50 text-neon-blue px-2 py-1 text-xs rounded opacity-0 transition-opacity pointer-events-none whitespace-nowrap
-                ${activeSection === item.id ? 'opacity-100 translate-x-1' : 'group-hover:opacity-100'}
-             `}>
-               {item.label}
-             </span>
-           </div>
-         ))}
+               {/* Icon Circle */}
+               <div 
+                  className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-300 relative overflow-hidden
+                  ${activeSection === item.id 
+                    ? 'bg-neon-purple text-white border border-neon-purple shadow-[0_0_15px_rgba(176,38,255,0.6)] scale-110' 
+                    : 'bg-black text-gray-500 border border-gray-700 hover:border-neon-blue hover:text-neon-blue'
+                  }`}
+               >
+                 {item.icon}
+               </div>
+
+               {/* Label Tooltip (Appears on Hover) */}
+               <span className={`
+                  absolute md:left-16 -top-10 md:top-auto bg-black border border-neon-blue/50 text-neon-blue px-2 py-1 text-xs rounded opacity-0 transition-opacity pointer-events-none whitespace-nowrap
+                  ${activeSection === item.id ? 'opacity-100 translate-x-1' : 'group-hover:opacity-100'}
+               `}>
+                 {item.label}
+               </span>
+             </div>
+          ))}
       </nav>
 
-      {/* Global Elements */}
-      <ChatWidget onClick={() => setActiveSection(SectionType.ABOUT)} />
+      {/* Global Elements - CHAT WIDGET CONDITIONAL RENDERING APPLIED HERE */}
+      {activeSection !== SectionType.ABOUT && (
+          <ChatWidget onClick={() => setActiveSection(SectionType.ABOUT)} />
+      )}
       
       {/* Global Styles for Keyframes not in Tailwind config */}
       <style>{`

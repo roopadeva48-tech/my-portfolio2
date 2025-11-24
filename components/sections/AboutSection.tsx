@@ -8,7 +8,7 @@ const educationData: Education[] = [
   {
     institution: "KSR College of Engineering, Tiruchengode",
     degree: "Bachelor of Engineering",
-    score: "8.5 CGPA (Pursuing)",
+    score: "8.5 CGPA (Pursuing 2nd year)",
     imagePlaceholder: "ksrimage.jpg" // Static College Image
   },
   {

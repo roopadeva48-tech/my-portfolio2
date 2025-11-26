@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ChatWidget from '../ChatWidget'; 
 import AboutSection from './AboutSection'; 
 import MoonGate from '../MoonGate';
+
 // --- START: FULL CERTIFICATES DATA (All 11 Certificates) ---
 // NOTE: Please ensure you replace the placeholder URLs with your actual hosted image links.
 const certificates = [
@@ -89,7 +90,7 @@ const certificates = [
   { 
     id: 9, 
     title: 'Workshop on Large Language Model in Generative AI', 
-    issuer: 'Vellore Institute of Technology (VIT)', 
+    issuer: 'Vellore Institute of Technology (VIT - SCOPE)', 
     date: 'October 30th, 2025', 
     description: "Participation in a one-day workshop on LLM in Generative AI with Research and Industry Applications.",
     imageUrl: '/assets/DEVAROOPA_E_thumb.jpg', 
@@ -142,7 +143,7 @@ const TiltEffect: React.FC<TiltProps> = ({ children, className, onClick }) => {
     const rotateY = ((x - centerX) / centerX) * 10;  // Max rotation 10deg
 
     setTransformStyle({
-      transform: perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05),
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
     });
   };
 
@@ -316,4 +317,3 @@ const CertificateSection: React.FC = () => {
 };
 
 export default CertificateSection;
-

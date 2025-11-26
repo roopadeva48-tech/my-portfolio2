@@ -40,7 +40,7 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
     // 1. Start moving the astronaut after a short delay (aligned with "Where is it?" appearing)
     const timer1 = setTimeout(() => {
       setAstronautState('moving');
-    }, 1300); 
+    }, 1000); 
 
     // 2. Astronaut dialogue progression: "Can I help you..."
     const timer2 = setTimeout(() => {
@@ -55,7 +55,7 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
         setDialogue("It's behind the moon!");
         setAstronautState('idle');
         setShowMoonText(true); // Show the floating text pointing to the moon
-    }, 5500); // Changed to 4.5s
+    }, 4500); // Changed to 4.5s
 
     return () => {
         clearTimeout(timer1);
@@ -122,7 +122,7 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
       {/* 3D Moon - The Gate */}
       <mesh 
         ref={moonRef}
-        position={[6, 1.5, -5]} // Position on the right side
+        position={[4, 1.5, -5]} // Position on the right side
         onClick={handleMoonInteraction}
         onPointerEnter={() => setIsHoveringMoon(true)}
         onPointerLeave={() => setIsHoveringMoon(false)}
@@ -133,7 +133,7 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
         <sphereGeometry args={[1.5, 32, 32]} />
         {/* Use MeshDistortMaterial for the glow/distortion effect */}
         <MeshDistortMaterial
-            color={isHoveringMoon ? '#b12f9fff' : '#239cccff'} // Changed moon base color to Cyan
+            color={isHoveringMoon ? '#b026ff' : '#00FFFF'} // Changed moon base color to Cyan
             distort={0}
             speed={2}
             roughness={0.9}
@@ -143,10 +143,16 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
       </mesh>
 
       {/* Floating text pointing to the moon after dialogue */}
-     
+      {showMoonText && (
+          <Html position={[2.5, 3, -4]} center>
+              <div className="bg-green-500 text-black px-2 py-1 rounded-full text-xs font-bold whitespace-nowrap animate-pulse">
+                  Click me! 👆
+              </div>
+          </Html>
+      )}
 
       {/* Background Stars (from Drei) */}
-      <Stars radius={100} depth={50} count={1000} factor={4} saturation={0} fade speed={1} />
+      <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
       
       {/* Lights - Added a general directional light for better visibility of the astronaut */}
       <ambientLight intensity={0.5} />
@@ -157,14 +163,14 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
       {/* Astronaut Model and Initial Position/Dialogue */}
       <group 
         ref={astronautRef} 
-        position={[-9, -2.5, 0]} // Adjusted initial position: further left and lower to start behind sidebar
+        position={[-3.5, -2.5, 0]} // Adjusted initial position: further left and lower to start behind sidebar
         scale={[0.5, 0.5, 0.5]}
       >
         {/* Render the loaded GLB scene */}
         <primitive object={gltf.scene.clone()} /> 
 
         {/* Dialogue Bubble (HTML overlay) */}
-        <Html position={[1.5, 2.5, 0]} transform>
+        <Html position={[0.5, 2.5, 0]} transform>
             {dialogue && ( // Only render if dialogue is not empty
               <div className={`p-2 rounded-lg text-sm transition-opacity duration-500 whitespace-nowrap
                 bg-black/50 text-white border border-neon-blue/50 backdrop-blur-sm

@@ -226,8 +226,7 @@ const CertificateSection: React.FC = () => {
       <h2 className="text-4xl font-bold text-center mb-16 text-white z-20 relative">Certifications 🎓</h2>
       
       {/* 1. INTERACTIVE 3D GATE (Initial View) */}
-      {!isCertificatesVisible && (
-          // Full screen overlay for the 3D scene
+{!isCertificatesVisible && (
           <div className="fixed inset-0 z-50">
               <MoonGate onMoonClick={handleMoonClick} />
               
@@ -241,7 +240,7 @@ const CertificateSection: React.FC = () => {
       )}
 
       {/* 2. ORIGINAL CERTIFICATE LIST (After Moon Click) */}
-      {isCertificatesVisible && (
+{isCertificatesVisible && (
           <div className="space-y-24">
             {certificates.map((cert, index) => {
               // ... (The entire original map loop for displaying certificates goes here)
@@ -317,3 +316,4 @@ const CertificateSection: React.FC = () => {
 };
 
 export default CertificateSection;
+

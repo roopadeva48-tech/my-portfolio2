@@ -203,7 +203,7 @@ const ImageModal: React.FC<{ imageUrl: string; title: string; onClose: () => voi
 
 // --- Certificate Section Main Component ---
 const CertificateSection: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<{ url: string, title: string } | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{ url: string, title: string } | null>(null);
   // NEW STATE: Controls whether the 3D gate or the certificate list is shown
   const [isCertificatesVisible, setIsCertificatesVisible] = useState(false); 
 
@@ -212,18 +212,18 @@ const CertificateSection: React.FC = () => {
       setIsCertificatesVisible(true);
   };
   
-  const handleImageClick = (fullUrl: string, title: string) => {
-    setSelectedImage({ url: fullUrl, title: title });
-  };
+  const handleImageClick = (fullUrl: string, title: string) => {
+    setSelectedImage({ url: fullUrl, title: title });
+  };
 
-  const handleCloseModal = () => {
-    setSelectedImage(null);
-  };
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+  };
 
-  return (
-    <div className="w-full max-w-6xl mx-auto p-6 md:p-12 z-10 relative">
-      
-      
+  return (
+    <div className="w-full max-w-6xl mx-auto p-6 md:p-12 z-10 relative">
+      <h2 className="text-4xl font-bold text-center mb-16 text-white z-20 relative">Certifications 🎓</h2>
+      
       {/* 1. INTERACTIVE 3D GATE (Initial View) */}
       {!isCertificatesVisible && (
           // Full screen overlay for the 3D scene
@@ -233,7 +233,7 @@ const CertificateSection: React.FC = () => {
               {/* Overlay text for "Where is it?" */}
               <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
                   <p className="text-6xl text-white font-extrabold" style={{ textShadow: '0 0 10px #b026ff, 0 0 5px #b026ff' }}>
-                    Where the Certificate?
+                    Where is it?
                   </p>
               </div>
           </div>
@@ -257,7 +257,7 @@ const CertificateSection: React.FC = () => {
               return (
                 <div 
                   key={cert.id} 
-                  className={flex flex-col md:flex-row items-center gap-12 ${flexOrderClass}}
+                  className={`flex flex-col md:flex-row items-center gap-12 ${flexOrderClass}`}
                 >
                   
                   {/* Visual Side (Tilt Card) */}
@@ -285,7 +285,7 @@ const CertificateSection: React.FC = () => {
                   </div>
 
                   {/* Content Side */}
-                  <div className={w-full md:w-1/2 space-y-4 flex flex-col ${contentClass}}>
+                  <div className={`w-full md:w-1/2 space-y-4 flex flex-col ${contentClass}`}>
                     <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
                       {cert.title}
                     </h3>
@@ -294,7 +294,7 @@ const CertificateSection: React.FC = () => {
                       {cert.description || "A professional certification demonstrating skill and proficiency in this area."}
                     </p>
                     <div className="pt-2">
-                      <p className="text-gray-500 text-sm">Issued: *{cert.date}*</p>
+                      <p className="text-gray-500 text-sm">Issued: **{cert.date}**</p>
                     </div>
                   </div>
                 </div>
@@ -303,16 +303,17 @@ const CertificateSection: React.FC = () => {
           </div>
       )}
 
-      {/* Render the Modal if an image is selected */}
-      {selectedImage && (
-        <ImageModal 
-          imageUrl={selectedImage.url}
-          title={selectedImage.title}
-          onClose={handleCloseModal} 
-        />
-      )}
-    </div>
-  );
+      {/* Render the Modal if an image is selected */}
+      {selectedImage && (
+        <ImageModal 
+          imageUrl={selectedImage.url}
+          title={selectedImage.title}
+          onClose={handleCloseModal} 
+        />
+      )}
+    </div>
+  );
 };
 
 export default CertificateSection;
+

@@ -69,12 +69,12 @@ const App: React.FC = () => {
           {/* Vertical Line Decoration */}
           <div className="hidden md:block absolute right-0 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-neon-purple to-transparent opacity-50"></div>
 
-          {navItems.map((item) => (
-             <div
-               key={item.id}
-               className="group relative flex items-center justify-center"
-               onMouseEnter={() => setActiveSection(item.id)}
-             >
+{navItems.map((item) => (
+ <div
+   key={item.id}
+   className="group relative flex items-center justify-center" // <-- Check this line's closing quote/brace
+   onMouseEnter={() => setActiveSection(item.id)}
+ >
                {/* Hover Area Helper to make triggering easier */}
                <div className="absolute inset-[-10px] cursor-pointer" />
 
@@ -117,3 +117,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

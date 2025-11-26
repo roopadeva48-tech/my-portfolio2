@@ -292,7 +292,7 @@ const HomeSection: React.FC = () => {
                         {/* Distinctive Thick Border logic via padding and bg */}
                         <div className="w-full h-full overflow-hidden rounded-lg border-2 border-black">
                             <img 
-                                src="portimage.jpg"
+                                src="./images/portimage.jpg"
                                 alt="DevaroopaEProfile" 
                                 className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
                             />
@@ -305,3 +305,4 @@ const HomeSection: React.FC = () => {
 };
 
 export default HomeSection;
+

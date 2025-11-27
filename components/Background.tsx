@@ -47,7 +47,7 @@ const Background: React.FC = () => {
 
       {/* Layer 1: Moving Moon */}
       {/* The animate-moon-move speed is configured in tailwind.config.js for a slow pass (e.g., 180 seconds) */}
-      <div className="absolute top-1/4 left-[-150px] w-32 h-32 bg-slate-200 rounded-full shadow-[0_0_50px_rgba(255,255,255,0.3)] animate-moon-move opacity-90 z-0 overflow-hidden">
+      <div className="absolute top-1/4 left-[-150px] w-32 h-32 bg-slate-200 rounded-full shadow-[0_0_50px_rgba(255,255,255,0.3)] animate-moon-move opacity-9 z-0 overflow-hidden">
         {/* Moon Craters for texture */}
         <div className="absolute top-4 left-6 w-6 h-6 bg-slate-300 rounded-full opacity-50"></div>
         <div className="absolute bottom-8 right-8 w-10 h-10 bg-slate-300 rounded-full opacity-50"></div>

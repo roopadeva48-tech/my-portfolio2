@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import ChatWidget from '../ChatWidget'; 
 import AboutSection from './AboutSection'; 
 import MoonGate from '../MoonGate';
-
 // --- START: FULL CERTIFICATES DATA (All 11 Certificates) ---
 // NOTE: Please ensure you replace the placeholder URLs with your actual hosted image links.
 const certificates = [
@@ -13,8 +12,8 @@ const certificates = [
     issuer: 'CODTECH IT SOLUTIONS PRIVATE LIMITED', 
     date: 'July 18th, 2025 - September 3rd, 2025', 
     description: "Successfully completed a 6 weeks Online Internship Program in Frontend Web Development.",
-    imageUrl: '/assets/Untitled.pdf_thumb.jpg', 
-    fullUrl: '/assets/Untitled.pdf_full.jpg' 
+    imageUrl: ''
+
   },
   // 2. MongoDB Basics for Students
   { 
@@ -23,7 +22,7 @@ const certificates = [
     issuer: 'MongoDB', 
     date: 'June 25, 2025', 
     description: "Earned MongoDB Skill Badge demonstrating proficiency in MongoDB fundamentals.",
-    imageUrl: '/assets/MongoDBBasicsforStudents_thumb.jpg', 
+    src: './public/mangodb.jpg', 
     fullUrl: '/assets/MongoDBBasicsforStudents_full.jpg' 
   },
   // 3. Generative AI Workshop (K.S.R. College of Engineering)
@@ -33,52 +32,13 @@ const certificates = [
     issuer: 'K.S.R. College of Engineering', 
     date: 'April 28 & 29, 2025', 
     description: "Participation in a two-day workshop on Generative AI and Large Language Models (LLMs).",
-    imageUrl: '/assets/workshop-AI_thumb.jpg', 
-    fullUrl: '/assets/workshop-AI_full.jpg' 
+    src: './images/ksr.jpg', 
+    fullUrl: '' 
   },
-  // 4. MathWorks: Make and Manipulate Matrices
-  { 
-    id: 4, 
-    title: 'Course Completion: Make and Manipulate Matrices', 
-    issuer: 'MathWorks | Training Services', 
-    date: 'August 29, 2025', 
-    description: "Completed self-paced training course on core MATLAB matrix operations.",
-    imageUrl: '/assets/MakeMatrices_thumb.jpg', 
-    fullUrl: '/assets/MakeMatrices_full.jpg' 
-  },
-  // 5. MathWorks: Signal Segmentation with Deep Learning
-  { 
-    id: 5, 
-    title: 'Course Completion: Signal Segmentation with Deep Learning', 
-    issuer: 'MathWorks | Training Services', 
-    date: 'August 29, 2025', 
-    description: "Completed self-paced training course on deep learning applied to signal processing using MATLAB.",
-    imageUrl: '/assets/SignalSegmentation_thumb.jpg', 
-    fullUrl: '/assets/SignalSegmentation_full.jpg' 
-  },
-  // 6. MathWorks: Statistics Onramp
-  { 
-    id: 6, 
-    title: 'Course Completion: Statistics Onramp', 
-    issuer: 'MathWorks | Training Services', 
-    date: 'August 29, 2025', 
-    description: "Completed self-paced training course covering statistical analysis fundamentals using MATLAB.",
-    imageUrl: '/assets/StatisticsOnramp_thumb.jpg', 
-    fullUrl: '/assets/StatisticsOnramp_full.jpg' 
-  },
-  // 7. MathWorks: Dimensionality Reduction Techniques
-  { 
-    id: 7, 
-    title: 'Course Completion: Dimensionality Reduction Techniques', 
-    issuer: 'MathWorks | Training Services', 
-    date: 'August 29, 2025', 
-    description: "Completed self-paced training course on applying dimensionality reduction techniques.",
-    imageUrl: '/assets/DimensionalityReduction_thumb.jpg', 
-    fullUrl: '/assets/DimensionalityReduction_full.jpg' 
-  },
+ 
   // 8. Debugging Competition (KSR College of Engineering)
   { 
-    id: 8, 
+    id:4, 
     title: 'Debugging Competition Participation', 
     issuer: 'KSR College of Engineering (CSE)', 
     date: 'August 9th, 2025', 
@@ -88,9 +48,9 @@ const certificates = [
   },
   // 9. Large Language Model Workshop (VIT)
   { 
-    id: 9, 
+    id: 5, 
     title: 'Workshop on Large Language Model in Generative AI', 
-    issuer: 'Vellore Institute of Technology (VIT - SCOPE)', 
+    issuer: 'Vellore Institute of Technology (VIT)', 
     date: 'October 30th, 2025', 
     description: "Participation in a one-day workshop on LLM in Generative AI with Research and Industry Applications.",
     imageUrl: '/assets/DEVAROOPA_E_thumb.jpg', 
@@ -98,7 +58,7 @@ const certificates = [
   },
   // 10. Yukta: 2K25 Paper Presentation
   { 
-    id: 10, 
+    id: 6, 
     title: 'Paper Presentation Participation (YUKTA: 2K25)', 
     issuer: 'PSG Institute of Technology and Applied Research (CSE)', 
     date: 'March 15, 2025', 
@@ -108,7 +68,7 @@ const certificates = [
   },
   // 11. UI/UX Workshop (Imagivite)
   { 
-    id: 11, 
+    id: 7, 
     title: 'UI/UX Workshop', 
     issuer: 'Imagivite Technology Private Limited', 
     date: 'July 20, 2025', 
@@ -223,24 +183,27 @@ const CertificateSection: React.FC = () => {
 
   return (
     <div className="w-full max-w-6xl mx-auto p-6 md:p-12 z-10 relative">
-      <h2 className="text-4xl font-bold text-center mb-16 text-white z-20 relative">Certifications 🎓</h2>
+      
       
       {/* 1. INTERACTIVE 3D GATE (Initial View) */}
-{!isCertificatesVisible && (
+      {!isCertificatesVisible && (
+          // Full screen overlay for the 3D scene
           <div className="fixed inset-0 z-50">
               <MoonGate onMoonClick={handleMoonClick} />
               
               {/* Overlay text for "Where is it?" */}
-              <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                  <p className="text-6xl text-white font-extrabold" style={{ textShadow: '0 0 10px #b026ff, 0 0 5px #b026ff' }}>
-                    Where is it?
+              <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+
+                 <p className="text-5xl text-white font-extrabold" style={{ textShadow: '0 0 10px #b026ff, 0 0 5px #b026ff' }}>
+                    Where the Certificate?
                   </p>
+
               </div>
           </div>
       )}
 
       {/* 2. ORIGINAL CERTIFICATE LIST (After Moon Click) */}
-{isCertificatesVisible && (
+      {isCertificatesVisible && (
           <div className="space-y-24">
             {certificates.map((cert, index) => {
               // ... (The entire original map loop for displaying certificates goes here)
@@ -316,4 +279,3 @@ const CertificateSection: React.FC = () => {
 };
 
 export default CertificateSection;
-

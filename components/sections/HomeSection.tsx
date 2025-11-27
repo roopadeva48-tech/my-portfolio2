@@ -199,7 +199,7 @@ const HomeSection: React.FC = () => {
                         <div className ="relative w-64 h-80 md:w-80 md:h-96 bg-black p-1 rounded-lg">
                             <div className="w-full h-full overflow-hidden rounded-lg border-2 border-black">
                                 <img 
-                                    src="public/portimage.jpg"
+                                    src="./images/portimage.jpg"
                                     alt="DevaroopaEProfile" 
                                     className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
                                 />
@@ -224,3 +224,4 @@ const HomeSection: React.FC = () => {
 
 
 export default HomeSection;
+

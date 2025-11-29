@@ -37,7 +37,7 @@ const educationData: Education[] = [
 const AboutSection: React.FC = () => {
     // Chatbot State
     const [messages, setMessages] = useState<{role: 'user' | 'bot', text: string}[]>([
-        { role: 'bot', text: "Hello! I'm Roopadeva's AI assistant. I can answer questions about his skills, projects, and background using a RAG pipeline connected to my portfolio data." }
+        { role: 'bot', text: "Hello! I'm Devaroopa's AI assistant. I can answer questions about his skills, projects, and background using a RAG pipeline connected to my portfolio data." }
     ]);
     const [inputValue, setInputValue] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -198,5 +198,6 @@ const AboutSection: React.FC = () => {
         </div>
     );
 };
+
 
 export default AboutSection;

@@ -53,7 +53,7 @@ const certificates = [
     title: 'Paper Presentation Participation (YUKTA: 2K25)', 
     issuer: 'PSG Institute of Technology and Applied Research (CSE)', 
     date: 'March 15, 2025', 
-    description: "Certificate of Appreciation for participation in the Paper Presentation event at Yukta: 2K25.",
+    description: "Certificate of Appreciation for participation in the Paper Presentation event at Yukta(PSG): 2K25.",
     imageUrl: 'public/psg.jpg', 
     fullUrl: 'public/psg.jpg' 
   },

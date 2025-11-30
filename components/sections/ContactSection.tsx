@@ -3,7 +3,7 @@ import RocketEntry from '../RocketEntry'; // Import the 3D entry component
 
 // Define the static contact data
 const CONTACT_DATA = {
-    email: "roopadeva48@gmail4.com",
+    email: "roopadeva48@gmail.com",
     phone: "9566426085", // Placeholder Phone
     address: "Gurusamipalayam,Rasipuram,Namakkal.", // Placeholder Address
 };

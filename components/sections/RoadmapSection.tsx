@@ -32,7 +32,7 @@ const RoadmapSection: React.FC = () => {
               <span className="w-2 h-2 bg-neon-purple rounded-full"></span> PYTHON FOR AI
             </li>
             <li className="flex items-center gap-3 text-gray-300">
-              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> DATABASE WORK
+              <span className="w-2 h-2 bg-neon-purple rounded-full"></span> DATABASE 
             </li>
             <li className="flex items-center gap-3 text-gray-300">
               <span className="w-2 h-2 bg-neon-purple rounded-full"></span> DATA STRUCTURES & ALGORITHMS

@@ -6,7 +6,7 @@ const RoadmapSection: React.FC = () => {
     { title: "HTML", date: "july", completed: false },
     { title: "CSS", date: "august", completed: false },
     { title: "JS", date: "august", completed: false },
-    { title: "n8n WORKFLOW", date: "october", completed: true },
+    { title: "N8N WORKFLOW", date: "october", completed: true },
   ]);
 
   return (

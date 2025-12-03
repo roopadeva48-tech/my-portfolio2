@@ -22,7 +22,7 @@ const RoadmapSection: React.FC = () => {
         {/* Left Box: Planned Works */}
         <div className="bg-black/80 backdrop-blur-md border border-neon-purple/30 rounded-xl p-6 flex flex-col shadow-[0_0_20px_rgba(176,38,255,0.1)]">
           <h3 className="text-xl font-bold text-neon-purple mb-6 border-b border-neon-purple/30 pb-2">
-            Planned Learning
+            Planned Learning  
           </h3>
           <ul className="space-y-4 flex-1 overflow-y-auto pr-2 custom-scrollbar">
             <li className="flex items-center gap-3 text-gray-300">

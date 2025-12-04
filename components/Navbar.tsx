@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-deep-rose hover:text-bright-orchid transition-colors">
               <Heart className="fill-deep-rose text-deep-rose animate-pulse" size={24} />
-              <span>Portfolio</span>
+              <span> Portfolio </span>
             </Link>
           </div>
           

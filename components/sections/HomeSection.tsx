@@ -16,7 +16,7 @@ const GithubIcon = () => (
 // 2. NEW/MODIFIED FUNCTIONAL COMPONENTS (CTA & SOCIALS)
 // =========================================================================
 
-// --- New CTA Button Component (for Download Resume) ---
+// --- Primary CTA Button (Download Resume) ---
 const CTAButton: React.FC<{ href: string, label: string }> = ({ href, label }) => {
     return (
         <a
@@ -31,7 +31,7 @@ const CTAButton: React.FC<{ href: string, label: string }> = ({ href, label }) =
     );
 };
 
-// --- Contact Me Button (Outline Style) ---
+// --- Secondary CTA Button (Contact Me - Outline Style) ---
 const ContactOutlineButton: React.FC<{ onClick: () => void, label: string }> = ({ onClick, label }) => {
     return (
         <button
@@ -78,11 +78,7 @@ const SocialLinks: React.FC<{ linkedinUrl: string; githubUrl: string }> = ({ lin
     );
 };
 
-
-// =========================================================================
-// 3. DYNAMIC BACKGROUND COMPONENTS (Neural Network)
-// =========================================================================
-
+// --- Neural Network Background Component (Existing) ---
 const NeuralNetworkBackground: React.FC = () => {
     const nodes = [
         { top: '10%', left: '20%', delay: '0s', size: 'w-2 h-2' },
@@ -106,7 +102,6 @@ const NeuralNetworkBackground: React.FC = () => {
                     }}
                 ></div>
             ))}
-            {/* Simple CSS-based lines (use SVG/Canvas for complex connections) */}
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 <line x1="20%" y1="10%" x2="50%" y2="35%" stroke="#06b6d4" strokeWidth="1" opacity="0.5" />
                 <line x1="50%" y1="35%" x2="80%" y2="60%" stroke="#7c3aed" strokeWidth="1" opacity="0.5" />
@@ -118,13 +113,13 @@ const NeuralNetworkBackground: React.FC = () => {
 
 
 // =========================================================================
-// 4. MAIN COMPONENT
+// 3. MAIN COMPONENT
 // =========================================================================
 const HomeSection: React.FC = () => {
     // --- Configuration ---
     const LINKEDIN_URL = "YOUR_LINKEDIN_PROFILE_URL_HERE"; 
     const GITHUB_URL = "https://github.com/roopadeva48-tech";
-    const RESUME_FILE_PATH = "/Devaroopa_Resume.pdf"; 
+    const RESUME_FILE_PATH = "/Devaroopa_E_Resume.pdf"; 
     const fullName = 'Devaroopa E';
     
     // --- Typing Animation Logic (Kept Local) ---
@@ -147,13 +142,11 @@ const HomeSection: React.FC = () => {
 
     // Scroll to contact section (smooth)
     const scrollToContact = () => {
-        // NOTE: Ensure an element with id="contact" exists on your contact page/section
         try {
             const el = document.getElementById('contact');
             if (el) {
                 el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
-                // Fallback: set hash
                 window.location.hash = '#contact';
             }
         } catch (e) {
@@ -178,7 +171,6 @@ const HomeSection: React.FC = () => {
                     <h1 className="text-5xl md:text-8xl font-black pb-2 whitespace-nowrap tracking-tight gradient-text">
                         <span>{typedName}</span>
                         <span className="ml-1">
-                            {/* Cursor is hidden after typing is complete */}
                             <span className={`typing-cursor ${typedName.length === fullName.length ? 'hidden' : ''}`}>█</span>
                         </span>
                     </h1>
@@ -186,12 +178,12 @@ const HomeSection: React.FC = () => {
                     <div className="space-y-2">
                         <h3 className="text-2xl text-white font-bold">AI Developer</h3>
                         <p className="text-gray-400 max-w-lg">
-                            Crafting intelligent solutions through **code**. Passionate about turning **raw data into actionable insights** and building **robust systems**.
+                            Crafting intelligent solutions through <strong>code</strong>. Passionate about turning <strong>raw data into actionable insights</strong> and building <strong>robust systems</strong>.
                         </p>
                     </div>
 
-                    {/* CTA Buttons - NEW: Flex container for alignment and spacing */}
-                    <div className="flex flex-col sm:flex-row gap-4 mt-8"> 
+                    {/* FIX: CTA Buttons - Using flex container for proper spacing */}
+                    <div className="flex flex-col sm:flex-row gap-4 pt-4"> 
                         <CTAButton 
                             href={RESUME_FILE_PATH} 
                             label="Download Resume" 

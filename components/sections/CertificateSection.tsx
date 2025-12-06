@@ -242,18 +242,27 @@ const CertificateSection: React.FC = () => {
                   </div>
 
                   {/* Content Side - Takes remaining space */}
-                  <div className={`w-full md:w-1/2 space-y-4 flex flex-col ${contentClass}`}>
-                    <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
-                      {cert.title}
-                    </h3>
-                    <p className="text-neon-pink font-medium">{cert.issuer}</p>
-                    <p className="text-gray-300 leading-relaxed text-lg">
-                      {cert.description || "A professional certification demonstrating skill and proficiency in this area."}
-                    </p>
-                    <div className="pt-2">
-                      <p className="text-gray-500 text-sm">Issued: **{cert.date}**</p>
-                    </div>
-                  </div>
+									<div className={`w-full md:w-1/2 space-y-3 flex flex-col ${contentClass}`}>
+										<h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
+											{cert.title}
+										</h3>
+										<p className="text-neon-pink font-medium">{cert.issuer}</p>
+										<p className="text-gray-400 text-sm mt-1">Issued: {cert.date}</p>
+
+										<div className="mt-4">
+											<button
+												aria-label={`View ${cert.title}`}
+												title="View"
+												onClick={() => handleImageClick(cert.fullUrl || cert.imageUrl, cert.title)}
+												className="p-2 bg-neon-blue text-white rounded-md hover:brightness-110 transition flex items-center justify-center"
+											>
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+													<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+													<circle cx="12" cy="12" r="3" />
+												</svg>
+											</button>
+										</div>
+									</div>
                 </div>
               );
             })}

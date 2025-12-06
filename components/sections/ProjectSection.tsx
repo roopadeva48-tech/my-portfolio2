@@ -1,154 +1,231 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TiltCard from '../TiltCard'; // Assuming TiltCard component is correctly imported
-// import { Project } from '../../types'; // Keeping the type reference commented
+import { Link } from 'react-router-dom'; 
 
-// Define the Project type locally for completeness
+// --- Custom Icons (for consistent styling) ---
+const GlobeIcon = ({ size = 20, className = '' }) => (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 0 4 10 15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0-4-10 15.3 15.3 0 0 0 4-10zM2.5 12h19"/></svg>
+);
+
+const EyeIcon = ({ size = 20, className = '' }) => (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+);
+
+const GitHubIcon = ({ size = 20, className = '' }) => (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.6.111.822-.257.822-.576v-2.222c-3.322.72-4.015-1.611-4.015-1.611-.543-1.378-1.328-1.74-1.328-1.74-1.09-.745.083-.729.083-.729 1.204.084 1.839 1.237 1.839 1.237 1.07 1.834 2.809 1.305 3.495.998.109-.776.419-1.305.762-1.604-2.665-.304-5.467-1.334-5.467-5.931 0-1.311.465-2.381 1.235-3.221-.135-.303-.54-1.523.104-3.176 0 0 1.006-.322 3.3 1.23.96-.268 1.98-.403 3-.403s2.04.135 3 .403c2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.911 1.23 3.221 0 4.597-2.802 5.624-5.475 5.92.42.36.81 1.096.81 2.22v3.259c0 .319.223.69.823.575C20.563 22.092 24 17.592 24 12c0-6.627-5.374-12-12-12z"/></svg>
+);
+// --- End Custom Icons ---
+
+// Define the Project type with all required details
 type Project = {
     title: string;
     description: string;
+    fullDescription: string; // Added for modal detail
     link: string;
+    repo: string; // Added GitHub repository link
     tags: string[];
     imageUrl: string;
 }
 
 const projects: Project[] = [
-  {
-    title: "Krishi Sakthi",
-    description: "An AI-powered agricultural assistant helping farmers with crop disease detection and yield prediction using advanced computer vision models.",
-    link: "https://krishi-sakhi-innovix-yp7whczthex5zaachik6gu.streamlit.app/",
-    tags: ["Python", "TensorFlow", "React", "FastAPI"],
-    imageUrl: 'public/krishi.jpg'
-  },
-  {
-    title: "RAG CHATBOT",
-    description: "Retrieval-Augmented Generation chatbot capable of ingesting custom documents to provide context-aware answers with high accuracy.",
-    link: "https://roopadeva48-tech.github.io/N8n_chatbot/)",
-    tags: ["LangChain", "OpenAI", "Pinecone", "Next.js"],
-    imageUrl: 'public/rag-pj.jpg'
-  },
-  {
-    title: "my-utility-toolkit",
-    description: "A comprehensive CLI and Web toolkit for developers offering rapid data formatting, regex testing, and file conversion utilities.",
-    link: "https://roopadeva48-tech.github.io/my-utility-toolkit/",
-    tags: ["TypeScript", "Node.js", "Rust", "WebAssembly"],
-    imageUrl: "public/uti-pj.jpg"
-  }
+    {
+        title: "Krishi Sakthi",
+        description: "An AI-powered agricultural assistant helping farmers with crop disease detection.",
+        fullDescription: "A comprehensive AI system designed to assist local farmers. It utilizes custom-trained computer vision models (YOLO/Faster R-CNN) deployed via FastAPI to identify specific crop diseases from images. Additionally, it integrates a machine learning model to recommend the best soil treatments and crop rotation schedules based on local data and climate input.",
+        link: "https://krishi-sakhi-innovix-yp7whczthex5zaachik6gu.streamlit.app/",
+        repo: "https://github.com/roopadeva48-tech/Krishi-Sakthi-AI",
+        tags: ["Python", "TensorFlow", "React", "FastAPI", "Computer Vision"],
+        imageUrl: 'public/krishi.jpg'
+    },
+    {
+        title: "RAG CHATBOT",
+        description: "Retrieval-Augmented Generation chatbot capable of ingesting custom documents.",
+        fullDescription: "Built a fully functional RAG pipeline using LangChain for orchestration and Pinecone as the vector store. The chatbot can ingest PDF/DOCX documents, embed them using OpenAI models, and provide context-aware, highly accurate answers, eliminating external hallucinations.",
+        link: "https://roopadeva48-tech.github.io/N8n_chatbot/)",
+        repo: "https://github.com/roopadeva48-tech/N8n_chatbot",
+        tags: ["LangChain", "OpenAI", "Pinecone", "Next.js", "Vector DB"],
+        imageUrl: 'public/rag-pj.jpg'
+    },
+    {
+        title: "my-utility-toolkit",
+        description: "A comprehensive CLI and Web toolkit for developers offering rapid data formatting.",
+        fullDescription: "A practical toolkit developed using Rust and WebAssembly (Wasm) for performance-critical utilities like data formatting, regex validation, and binary file conversion. The web interface is built with TypeScript and Node.js to showcase Wasm integration for high-speed client-side processing.",
+        link: "https://roopadeva48-tech.github.io/my-utility-toolkit/",
+        repo: "https://github.com/roopadeva48-tech/my-utility-toolkit",
+        tags: ["TypeScript", "Node.js", "Rust", "WebAssembly", "CLI"],
+        imageUrl: "public/uti-pj.jpg"
+    }
 ];
 
-// --- Repository Showcase Component (Code from previous step, simplified/modified for Projects page) ---
-const RepositoryShowcase: React.FC = () => {
-    // Data for extra repositories or related smaller projects
-    const repos = [
-        { name: "ML-Model-Deployment", lang: "FastAPI", desc: "A template for deploying Python models via REST APIs.", url: "YOUR_REPO_URL_5" },
-        { name: "Portfolio-Design-System", lang: "Tailwind", desc: "Custom Tailwind CSS configuration and component library.", url: "YOUR_REPO_URL_6" },
-        { name: "Data-Preprocessing-Pipeline", lang: "Python", desc: "Modular scripts for efficient data cleaning and transformation.", url: "YOUR_REPO_URL_7" },
-    ];
+
+// --- Project Modal Component ---
+const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> = ({ project, onClose }) => {
+    if (!project) return null;
 
     return (
-        <div className="w-full mt-32 pt-8 relative p-8 rounded-xl shadow-2xl bg-black/70 border border-neon-blue/30">
-            <h4 className="text-2xl font-extrabold text-neon-blue mb-6 uppercase tracking-widest text-center">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-pink to-neon-purple">
-                    [ Secondary Code Contributions ]
-                </span>
-            </h4>
-            
-            {/* Terminal Header Bar */}
-            <div className="flex items-center gap-2 mb-4">
-                <span className="ml-2 text-xs text-gray-500 font-mono">github/roopadeva48-tech/misc-repos</span>
-            </div>
+        <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
+            <div 
+                className="w-full max-w-3xl bg-slate-900 border border-neon-purple/50 rounded-xl shadow-3xl shadow-neon-purple/30 overflow-hidden relative animate-scale-in"
+                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+            >
+                {/* Close Button */}
+                <button 
+                    onClick={onClose} 
+                    className="absolute top-4 right-4 text-white hover:text-neon-pink z-20 transition-colors"
+                >
+                    <X size={24} />
+                </button>
 
-            {/* Horizontal Scroll Container */}
-            <div className="flex overflow-x-auto space-x-6 pb-2 scrollbar-hide">
-                {repos.map((repo, index) => (
-                    <a 
-                        key={index} 
-                        href={repo.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        // Glass Card Style: Translucent background, subtle border, strong hover effect
-                        className="min-w-[320px] p-5 bg-black/30 border border-white/20 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.03] hover:border-neon-purple/80 hover:bg-black/50 group cursor-pointer"
-                    >
-                        <div className="flex items-center justify-between mb-2">
-                            <h5 className="font-extrabold text-xl text-neon-pink group-hover:text-neon-blue transition-colors">{repo.name}</h5>
-                        </div>
-                        <p className="text-sm text-gray-300 mb-3 font-mono">{repo.desc}</p>
-                        <span className="text-xs font-mono px-2 py-1 bg-neon-purple/30 text-white rounded">
-                            {repo.lang}
-                        </span>
-                    </a>
-                ))}
+                {/* Modal Image/Header */}
+                <div className="h-48 w-full bg-gray-800 overflow-hidden">
+                    <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover opacity-70" />
+                </div>
+                
+                {/* Modal Content */}
+                <div className="p-6 md:p-8 space-y-4">
+                    <h3 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
+                        {project.title}
+                    </h3>
+
+                    <h4 className="text-sm font-semibold text-neon-pink uppercase tracking-widest mt-4">Full Description</h4>
+                    <p className="text-gray-300 leading-relaxed text-md">{project.fullDescription}</p>
+
+                    <h4 className="text-sm font-semibold text-neon-pink uppercase tracking-widest pt-4">Technologies Used</h4>
+                    <div className="flex flex-wrap gap-2">
+                        {project.tags.map(tag => (
+                            <span key={tag} className="text-sm font-mono text-neon-blue border border-neon-blue/50 px-3 py-1 rounded bg-neon-blue/10">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+
+                    <div className="flex justify-start gap-6 pt-6 border-t border-slate-700/50">
+                         {/* Live Site Link */}
+                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white hover:text-neon-blue transition-colors">
+                            <GlobeIcon size={20} /> Live Site
+                        </a>
+                        {/* Repository Link */}
+                        <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white hover:text-neon-pink transition-colors">
+                            <GitHubIcon size={20} /> Repository
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     );
 };
-// --- End Repository Showcase Component ---
 
 
 const ProjectSection: React.FC = () => {
-  return (
-    <div className="w-full max-w-7xl mx-auto p-6 md:p-12 z-10">
-      <h2 className="text-4xl font-bold text-center mb-16 text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue">
-            Featured Projects
-        </h2>
-      
-      <div className="space-y-28"> {/* Increased spacing between projects */}
-        {projects.map((project, index) => (
-          <div key={index} className={`flex flex-col md:flex-row items-center gap-16 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-            
-            {/* Visual Side (3D Tilt) - Polished Shadow/Border */}
-            <div className="w-full md:w-1/2">
-              <TiltCard className="rounded-xl overflow-hidden shadow-3xl shadow-neon-blue/20 border border-neon-blue/30 bg-black/50 group">
-                <div className="relative h-72 w-full bg-gray-900 overflow-hidden"> {/* Increased height */}
-                    <img 
-                        src={project.imageUrl} 
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
-                </div>
-                <div className="p-6 relative">
-                    {/* Project Index Number Stylized */}
-                    <div className="absolute -top-10 right-6 w-12 h-12 bg-neon-pink rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-neon-pink/40 animate-pulse-slow">
-                        {index + 1}
-                    </div>
-                </div>
-              </TiltCard>
-            </div>
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-            {/* Content Side - Polished Text */}
-            <div className="w-full md:w-1/2 space-y-4">
-              <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
-                {project.title}
-              </h3>
-              <p className="text-gray-300 leading-relaxed text-lg border-l-4 border-neon-pink/50 pl-4"> {/* Added subtle text border */}
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2 pt-2">
-                {project.tags.map((tag, tagIndex) => (
-                  <span 
-                    key={tagIndex}
-                    className="text-sm bg-neon-purple/20 text-neon-purple px-3 py-1 rounded-full font-mono hover:bg-neon-purple/40 transition-colors"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="pt-4">
-                 <a href={project.link} className="inline-flex items-center gap-2 text-neon-pink hover:text-white transition-colors group">
-                    View Project 
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-                 </a>
-              </div>
-            </div>
+    const openModal = (project: Project) => {
+        setSelectedProject(project);
+    };
 
-          </div>
-        ))}
-      </div>
+    const closeModal = () => {
+        setSelectedProject(null);
+    };
 
-      {/* NEW SECTION: Repository Showcase (Glass Card Style) */}
-      <RepositoryShowcase />
-    </div>
-  );
+    return (
+        <>
+            {/* Custom Modal Animation Style */}
+            <style>{`
+                @keyframes scale-in {
+                    from { opacity: 0; transform: scale(0.9); }
+                    to { opacity: 1; transform: scale(1); }
+                }
+                .animate-scale-in {
+                    animation: scale-in 0.3s ease-out forwards;
+                }
+            `}</style>
+        
+            <div className="w-full max-w-7xl mx-auto p-6 md:p-12 z-10">
+                <h2 className="text-4xl font-bold text-center mb-16 text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue">
+                    Featured Projects
+                </h2>
+                
+                <div className="space-y-28">
+                    {projects.map((project, index) => (
+                        <div key={index} className={`flex flex-col md:flex-row items-center gap-16 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+                            
+                            {/* Visual Side (3D Tilt) - Clickable Image */}
+                            <div className="w-full md:w-1/2 cursor-pointer" onClick={() => openModal(project)}>
+                                <TiltCard className="rounded-xl overflow-hidden shadow-3xl shadow-neon-blue/20 border border-neon-blue/30 bg-black/50 group">
+                                    <div className="relative h-72 w-full bg-gray-900 overflow-hidden"> 
+                                        <img 
+                                            src={project.imageUrl} 
+                                            alt={project.title}
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                                    </div>
+                                    <div className="p-6 relative">
+                                        {/* Removed: Project Index Number */}
+                                    </div>
+                                </TiltCard>
+                            </div>
+
+                            {/* Content Side */}
+                            <div className="w-full md:w-1/2 space-y-4">
+                                <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
+                                    {project.title}
+                                </h3>
+                                <p className="text-gray-300 leading-relaxed text-md border-l-4 border-neon-pink/50 pl-4">
+                                    {/* Reduced content for primary view */}
+                                    {project.description}
+                                </p>
+                                <div className="flex flex-wrap gap-2 pt-2">
+                                    {project.tags.map(tag => (
+                                        <span key={tag} className="text-xs font-mono text-neon-blue border border-neon-blue/50 px-2 py-1 rounded hover:bg-neon-blue/10 transition-colors">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                                <div className="pt-4 flex gap-4">
+                                    {/* ICON 1: View Project (Globe Icon) */}
+                                    <a 
+                                        href={project.link} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        aria-label={`View live site for ${project.title}`}
+                                        className="p-3 rounded-full bg-neon-blue/20 text-neon-blue hover:bg-neon-blue/40 transition-colors"
+                                    >
+                                        <GlobeIcon size={20} />
+                                    </a>
+
+                                    {/* ICON 2: GitHub Repository */}
+                                    <a 
+                                        href={project.repo} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        aria-label={`GitHub repository for ${project.title}`}
+                                        className="p-3 rounded-full bg-slate-700/50 text-white hover:bg-slate-700 transition-colors"
+                                    >
+                                        <GitHubIcon size={20} />
+                                    </a>
+
+                                     {/* ICON 3: Details/Popup (Eye Icon) */}
+                                    <button 
+                                        onClick={() => openModal(project)}
+                                        aria-label={`View full details for ${project.title}`}
+                                        className="p-3 rounded-full bg-neon-pink/20 text-neon-pink hover:bg-neon-pink/40 transition-colors"
+                                    >
+                                        <EyeIcon size={20} />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                
+                {/* Removed: Repository Showcase (Secondary Section) */}
+            </div>
+
+            {/* Render Modal if a project is selected */}
+            <ProjectModal project={selectedProject} onClose={closeModal} />
+        </>
+    );
 };
 
 export default ProjectSection;

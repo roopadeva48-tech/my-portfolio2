@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React , { useState } from 'react';
 import TiltCard from '../TiltCard'; // Assuming TiltCard component is correctly imported
 import { Link } from 'react-router-dom'; 
 
@@ -48,10 +48,7 @@ const projects: Project[] = [
         tags: ["Python", "TensorFlow", "React", "FastAPI", "Computer Vision"],
         imageUrl: 'public/krishi.jpg',
         galleryImages: [
-            'public/krishi_screen1.jpg',
-            'public/krishi_screen2.jpg',
-            'public/krishi_screen3.jpg',
-            'public/krishi_screen4.jpg',
+            '/krishi.jpg',
         ],
     },
     {
@@ -69,10 +66,8 @@ const projects: Project[] = [
         tags: ["LangChain", "OpenAI", "Pinecone", "Next.js", "Vector DB"],
         imageUrl: 'public/rag-pj.jpg',
         galleryImages: [
-            'public/krishi_screen1.jpg',
-            'public/krishi_screen2.jpg',
-            'public/krishi_screen3.jpg',
-            'public/krishi_screen4.jpg',
+            '/n8n2.png',
+            '/n8n3.png',
         ],
     },
     {
@@ -90,14 +85,32 @@ const projects: Project[] = [
         tags: ["TypeScript", "Node.js", "Rust", "WebAssembly", "CLI"],
         imageUrl: "public/uti-pj.jpg",
         galleryImages: [
-            'public/krishi_screen1.jpg',
-            'public/krishi_screen2.jpg',
-            'public/krishi_screen3.jpg',
-            'public/krishi_screen4.jpg',
+            '/utility2.png',
         ],
     }
 ];
+// --- Image Gallery Component ---
 
+const ImageGallery: React.FC<{ images: string[], title: string }> = ({ images, title }) => {
+    if (images.length === 0) return null;
+
+    return (
+        <section className="mt-4">
+            <h4 className="text-lg font-semibold text-white uppercase tracking-widest mb-3">Project Gallery</h4>
+            <div className="flex overflow-x-auto space-x-4 pb-3 scrollbar-hide">
+                {images.map((imgSrc, index) => (
+                    <img 
+                        key={index} 
+                        src={imgSrc} 
+                        alt={`${title} screenshot ${index + 1}`}
+                        className="w-80 h-48 flex-shrink-0 object-cover rounded-lg shadow-md border border-slate-700/50 transition-transform duration-300 hover:scale-[1.02]"
+                    />
+                ))}
+            </div>
+            {/* Note: You may need to add the scrollbar-hide utility to your global CSS */}
+        </section>
+    );
+};
 
 // --- Project Modal Component ---
 const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> = ({ project, onClose }) => {
@@ -131,7 +144,7 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
                     </section>
 
                     {/* NEW: Image Gallery Section */}
-                    
+
                     <ImageGallery images={project.galleryImages} title={project.title} />
 
                     {/* Key Contributions */}

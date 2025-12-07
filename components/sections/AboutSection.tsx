@@ -325,13 +325,9 @@ const AboutSection: React.FC = () => {
                 messagesEndRef={messagesEndRef}
             />
             
-            {/* 4. MISSION STATEMENT (Optional Conclusion) */}
-            <div className="mt-20 pt-10 text-center relative z-20">
-                <h4 className="text-2xl font-light text-gray-400 max-w-3xl mx-auto italic">
-                    "Committed to building intelligent systems that simplify complexity and drive meaningful innovation."
-                </h4>
-            </div>
+
         </div>
     );
 };
 export default AboutSection;
+

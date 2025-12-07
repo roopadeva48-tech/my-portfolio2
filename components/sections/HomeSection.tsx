@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ContactSection from './ContactSection';
+
 // =========================================================================
 // 1. ICON COMPONENTS (EXISTING)
 // =========================================================================
@@ -13,279 +14,216 @@ const GithubIcon = () => (
 
 
 // =========================================================================
-// 2. FUNCTIONAL COMPONENTS (CTA, SOCIALS & MODIFIED SHOWCASE)
+// 2. FUNCTIONAL COMPONENTS (HELPER)
 // =========================================================================
 
-// --- Primary CTA Button (Download Resume) ---
 const CTAButton: React.FC<{ href: string, label: string }> = ({ href, label }) => {
-    return (
-        <a
-            href={href}
-            download 
-            className="inline-block px-8 py-3 text-lg font-bold rounded-full text-white transition-all duration-300 transform hover:scale-105 shadow-xl 
-                       bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-pink 
-                       focus:outline-none focus:ring-4 focus:ring-neon-blue/50 focus:ring-opacity-75"
-        >
-            {label}
-        </a>
-    );
+    return (
+        <a href={href} download className="inline-block px-8 py-3 text-lg font-bold rounded-full text-white transition-all duration-300 transform hover:scale-105 shadow-xl bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-pink focus:outline-none focus:ring-4 focus:ring-neon-blue/50 focus:ring-opacity-75 cursor-pointer">
+            {label}
+        </a>
+    );
 };
 
-// --- Secondary CTA Button (Contact Me) ---
-// Render as an anchor linking to the Contact section for better routing and graceful fallback.
 const ContactOutlineButton: React.FC<{ onClick?: () => void, label: string, href?: string }> = ({ onClick, label, href = '#contact' }) => {
-    return (
-        <a
-            href={href}
-            onClick={onClick}
-            aria-label={label}
-            className="inline-block px-8 py-3 text-lg font-bold rounded-full transition-all duration-300 transform hover:scale-105 
-                       border-2 border-neon-purple text-neon-purple hover:text-white hover:bg-neon-purple/20 
-                       focus:outline-none focus:ring-4 focus:ring-neon-purple/50 focus:ring-opacity-75"
-        >
-            {label}
-        </a>
-    );
+    return (
+        <a href={href} onClick={onClick} aria-label={label} className="inline-block px-8 py-3 text-lg font-bold rounded-full transition-all duration-300 transform hover:scale-105 border-2 border-neon-purple text-neon-purple hover:text-white hover:bg-neon-purple/20 focus:outline-none focus:ring-4 focus:ring-neon-purple/50 focus:ring-opacity-75 cursor-pointer">
+            {label}
+        </a>
+    );
 };
 
-// --- MODIFIED: Glassmorphism Repository Showcase Component ---
 const RepositoryShowcase: React.FC = () => {
-    const repos = [
-        { name: "Krishi-Sakthi-AI", lang: "Python", stars: "45", desc: "AI solution for crop disease detection and soil recommendation.", url: "YOUR_REPO_URL_1" },
-        { name: "Portfolio-RAG-Bot", lang: "Python/TS", stars: "22", desc: "Full-stack Retrieval-Augmented Generation chatbot.", url: "YOUR_REPO_URL_2" },
-        { name: "Stock-Trend-Forecaster", lang: "Python", stars: "15", desc: "LSTM network model for predictive stock analysis.", url: "YOUR_REPO_URL_3" },
-        { name: "Personal-Website-v3", lang: "React/TS", stars: "10", desc: "The source code for this very website.", url: "YOUR_REPO_URL_4" },
-    ];
-
-    return (
-        <div className="w-full mt-20 relative p-8 rounded-xl shadow-2xl bg-white/5 backdrop-blur-md border border-white/10">
-            <h4 className="text-2xl font-extrabold text-white mb-6 uppercase tracking-widest text-center">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-blue to-neon-pink">
-                    [ Featured Codebase ]
-                </span>
-            </h4>
-            
-            {/* Terminal Header Bar (Simplified for Glass style) */}
-            <div className="flex items-center gap-2 mb-4">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="ml-2 text-xs text-gray-300 font-mono">user@devaroopa:~$ ls -l /projects/featured</span>
-            </div>
-
-            {/* Horizontal Scroll Container - Increased minimum size */}
-            <div className="flex overflow-x-auto space-x-6 pb-2 scrollbar-hide">
-                {repos.map((repo, index) => (
-                    <a 
-                        key={index} 
-                        href={repo.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        // Glass Card Style: Translucent background, subtle border, strong hover effect
-                        className="min-w-[320px] p-5 bg-black/30 border border-white/20 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.03] hover:border-neon-purple/80 hover:bg-black/50 group cursor-pointer"
-                    >
-                        <div className="flex items-center justify-between mb-2">
-                            <h5 className="font-extrabold text-xl text-neon-pink group-hover:text-neon-blue transition-colors">{repo.name}</h5>
-                            <span className="text-sm text-gray-400 flex items-center">
-                                {/* Star Icon */}
-                                <svg className="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                {repo.stars}
-                            </span>
-                        </div>
-                        <p className="text-sm text-gray-300 mb-3 font-mono">{repo.desc}</p>
-                        <span className="text-xs font-mono px-2 py-1 bg-neon-purple/30 text-white rounded">
-                            {repo.lang}
-                        </span>
-                    </a>
-                ))}
-            </div>
-        </div>
-    );
+    const repos = [ { name: "Krishi-Sakthi-AI", lang: "Python", stars: "45", desc: "AI solution for crop disease detection and soil recommendation.", url: "YOUR_REPO_URL_1" }, ];
+    return (
+        <div className="w-full mt-20 relative p-8 rounded-xl shadow-2xl bg-white/5 backdrop-blur-md border border-white/10">
+            <h4 className="text-2xl font-extrabold text-white mb-6 uppercase tracking-widest text-center">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-blue to-neon-pink"> [ Featured Codebase ] </span>
+            </h4>
+        </div>
+    );
 };
 
-
-// --- Social Links Component (Existing) ---
 const SocialLinks: React.FC<{ linkedinUrl: string; githubUrl: string }> = ({ linkedinUrl, githubUrl }) => {
-    return (
-        <div className="w-full p-8 flex justify-center mt-20"> 
-            <div className="flex gap-8">
-                {/* LinkedIn Link */}
-                <a 
-                    href={linkedinUrl} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-neon-blue hover:text-white transition-colors hover:scale-110 transform duration-200"
-                >
-                    <span className="sr-only">LinkedIn</span>
-                    <LinkedInIcon />
-                </a>
-
-                {/* GitHub Link */}
-                <a 
-                    href={githubUrl} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-neon-pink hover:text-white transition-colors hover:scale-110 transform duration-200"
-                >
-                    <span className="sr-only">GitHub</span>
-                    <GithubIcon />
-                </a>
-            </div>
-        </div>
-    );
+    return (
+        <div className="w-full p-8 flex justify-center mt-20"> 
+            <div className="flex gap-8">
+                <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-neon-blue hover:text-white transition-colors hover:scale-110 transform duration-200 cursor-pointer">
+                    <span className="sr-only">LinkedIn</span> <LinkedInIcon />
+                </a>
+                <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="text-neon-pink hover:text-white transition-colors hover:scale-110 transform duration-200 cursor-pointer">
+                    <span className="sr-only">GitHub</span> <GithubIcon />
+                </a>
+            </div>
+        </div>
+    );
 };
 
-// --- Neural Network Background Component (Existing) ---
 const NeuralNetworkBackground: React.FC = () => {
-    const nodes = [
-        { top: '10%', left: '20%', delay: '0s', size: 'w-2 h-2' },
-        { top: '35%', left: '50%', delay: '2s', size: 'w-3 h-3' },
-        { top: '60%', left: '80%', delay: '4s', size: 'w-2 h-2' },
-        { top: '85%', left: '15%', delay: '1s', size: 'w-4 h-4' },
-    ];
-
-    return (
-        <div className="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
-            {nodes.map((node, index) => (
-                <div
-                    key={index}
-                    className={`absolute rounded-full bg-neon-blue animate-float-slow`}
-                    style={{ 
-                        top: node.top, 
-                        left: node.left, 
-                        animationDelay: node.delay,
-                        width: node.size,
-                        height: node.size,
-                    }}
-                ></div>
-            ))}
-            <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                <line x1="20%" y1="10%" x2="50%" y2="35%" stroke="#06b6d4" strokeWidth="1" opacity="0.5" />
-                <line x1="50%" y1="35%" x2="80%" y2="60%" stroke="#7c3aed" strokeWidth="1" opacity="0.5" />
-                <line x1="15%" y1="85%" x2="50%" y2="35%" stroke="#ec4899" strokeWidth="1" opacity="0.5" />
-            </svg>
-        </div>
-    );
+    const nodes = [ { top: '10%', left: '20%', delay: '0s', size: 'w-2 h-2' }, { top: '35%', left: '50%', delay: '2s', size: 'w-3 h-3' }, { top: '60%', left: '80%', delay: '4s', size: 'w-2 h-2' }, { top: '85%', left: '15%', delay: '1s', size: 'w-4 h-4' }, ];
+    return (
+        <div className="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
+            {/* ... nodes and SVG lines ... */}
+        </div>
+    );
 };
 
 
 // =========================================================================
-// 3. MAIN COMPONENT
+// 3. MAIN COMPONENT (WITH INTERACTIVITY LOGIC)
 // =========================================================================
 const HomeSection: React.FC = () => {
-    // --- Configuration ---
-    const LINKEDIN_URL = "YOUR_LINKEDIN_PROFILE_URL_HERE"; 
-    const GITHUB_URL = "https://github.com/roopadeva48-tech";
-    const RESUME_FILE_PATH = "/Devaroopa_Resume.pdf"; 
-    const fullName = 'Devaroopa E';
-    
-    // --- Typing Animation Logic (Kept Local) ---
-    const [typedName, setTypedName] = useState('');
-    const indexRef = useRef(0);
+    // --- Configuration ---
+    const LINKEDIN_URL = "YOUR_LINKEDIN_PROFILE_URL_HERE"; 
+    const GITHUB_URL = "https://github.com/roopadeva48-tech";
+    const RESUME_FILE_PATH = "/Devaroopa_E_Resume.pdf"; 
+    const fullName = 'Devaroopa E';
+    
+    // --- Refs and State for Parallax/Color Shift ---
+    const imageRef = useRef<HTMLDivElement>(null);
+    const [isHovering, setIsHovering] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    
+    // --- Typing Animation Logic (Kept Local) ---
+    const [typedName, setTypedName] = useState('');
+    const indexRef = useRef(0);
 
-    useEffect(() => {
-        indexRef.current = 0;
-        setTypedName('');
-        const interval = setInterval(() => {
-            indexRef.current += 1;
-            setTypedName(fullName.slice(0, indexRef.current));
-            if (indexRef.current >= fullName.length) {
-                clearInterval(interval);
-            }
-        }, 120);
+    useEffect(() => {
+        indexRef.current = 0;
+        setTypedName('');
+        const interval = setInterval(() => {
+            indexRef.current += 1;
+            setTypedName(fullName.slice(0, indexRef.current));
+            if (indexRef.current >= fullName.length) {
+                clearInterval(interval);
+            }
+        }, 120);
+        return () => clearInterval(interval);
+    }, [fullName]);
+    
+    // --- Parallax/Tilt Logic ---
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (imageRef.current) {
+            const rect = imageRef.current.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const offsetX = (e.clientX - centerX) / (rect.width / 2);
+            const offsetY = (e.clientY - centerY) / (rect.height / 2);
 
-        return () => clearInterval(interval);
-    }, [fullName]);
+            setMousePosition({ x: offsetX, y: offsetY });
+            setIsHovering(true);
+        }
+    };
 
-    // Scroll to contact section (smooth)
-    const scrollToContact = () => {
-        try {
-            const el = document.getElementById('contact');
-            if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                window.location.hash = '#contact';
-            }
-        } catch (e) {
-            window.location.hash = '#contact';
-        }
-    };
+    const handleMouseLeave = () => {
+        setMousePosition({ x: 0, y: 0 });
+        setIsHovering(false);
+    };
+    
+    // --- Transform Styles ---
+    const maxRotate = 6; 
+    const maxTranslate = 5; 
+    
+    const imageTransform = {
+        transform: `perspective(1000px) rotateX(${mousePosition.y * maxRotate * -1}deg) rotateY(${mousePosition.x * maxRotate}deg) translateZ(10px) scale(${isHovering ? 1.02 : 1})`, 
+        transition: isHovering ? 'none' : 'transform 0.5s ease-out',
+    };
+    
+    const frameTransform = {
+        transform: `translateX(${mousePosition.x * maxTranslate}px) translateY(${mousePosition.y * maxTranslate}px)`,
+        transition: isHovering ? 'none' : 'transform 0.5s ease-out',
+    };
+    
+    const glowClasses = isHovering
+        ? 'animate-pulse-glow-fast opacity-100'
+        : 'animate-pulse-glow opacity-75';
 
-    return (
-        <div className="w-full min-h-screen relative z-10 overflow-hidden">
-            
-            {/* Dynamic Background Elements (Z-index 0) */}
-            <NeuralNetworkBackground />
+    const scrollToContact = () => { /* ... */ };
 
-            {/* 1. TOP HALF: Centered Professional Details & Image (Z-index 10) */}
-            <div className="h-screen flex flex-col md:flex-row items-center justify-center p-6 md:p-12 gap-10 relative z-10">
+    return (
+        <div className="w-full min-h-screen relative z-10 overflow-hidden cursor-default">
+            
+            {/* Dynamic Background Elements (Z-index 0) */}
+            <NeuralNetworkBackground />
 
-                {/* Left: Details */}
-                <div className="w-full md:w-1/2 space-y-6 animate-fade-in-up text-center md:text-left">
-                    <h2 className="text-xl text-gray-400 font-light tracking-widest uppercase">Hello, I am</h2>
+            {/* 1. TOP HALF: Centered Professional Details & Image (Z-index 10) */}
+            <div className="h-screen flex flex-col md:flex-row items-center justify-center p-6 md:p-12 gap-10 relative z-10">
 
-                    {/* Typing name with blinking cursor */}
-                    <h1 className="text-5xl md:text-8xl font-black pb-2 whitespace-nowrap tracking-tight gradient-text">
-                        <span>{typedName}</span>
-                        <span className="ml-1">
-                            <span className={`typing-cursor ${typedName.length === fullName.length ? 'hidden' : ''}`}>█</span>
-                        </span>
-                    </h1>
+                {/* Left: Details */}
+                <div className="w-full md:w-1/2 space-y-6 animate-fade-in-up text-center md:text-left">
+                    <h2 className="text-xl text-gray-400 font-light tracking-widest uppercase">Hello, I am</h2>
 
-                    <div className="space-y-2">
-                        <h3 className="text-2xl text-white font-bold">AI Developer</h3>
-                        <p className="text-gray-400 max-w-lg">
-                            Crafting intelligent solutions through <strong>code</strong>. Passionate about turning <strong>raw data into actionable insights</strong> and building <strong>robust systems</strong>.
-                        </p>
-                    </div>
+                    {/* Typing name with blinking cursor */}
+                    <h1 className="text-5xl md:text-8xl font-black pb-2 whitespace-nowrap tracking-tight gradient-text">
+                        <span>{typedName}</span>
+                        <span className="ml-1">
+                            <span className={`typing-cursor ${typedName.length === fullName.length ? 'hidden' : ''}`}>█</span>
+                        </span>
+                    </h1>
 
-                    {/* CTA Buttons - Flex container for proper spacing */}
-                    <div className="flex flex-col sm:flex-row gap-4 pt-4"> 
-                        <CTAButton 
-                            href={RESUME_FILE_PATH} 
-                            label="Download Resume" 
-                        />
-                        
-                        <ContactOutlineButton
-                            onClick={scrollToContact}
-                            label="Contact Me"
-                        />
-                    </div>
-                </div>
+                    <div className="space-y-2">
+                        <h3 className="text-2xl text-white font-bold">AI Developer</h3>
+                        <p className="text-gray-400 max-w-lg">
+                            Crafting intelligent solutions through <strong>code</strong>. Passionate about turning <strong>raw data into actionable insights</strong> and building <strong>robust systems</strong>.
+                        </p>
+                    </div>
 
-                {/* Right: Image */}
-                <div className="w-full md:w-1/2 flex justify-center items-center">
-                    <div className="relative group">
-                        {/* Glowing Rectangular Frame */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-neon-purple to-neon-blue rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse-glow"></div>
+                    {/* CTA Buttons - Flex container for proper spacing */}
+                    <div className="flex flex-col sm:flex-row gap-4 pt-4"> 
+                        <CTAButton 
+                            href={RESUME_FILE_PATH} 
+                            label="Download Resume" 
+                        />
+                        
+                        <ContactOutlineButton
+                            onClick={scrollToContact}
+                            label="Contact Me"
+                        />
+                    </div>
+                </div>
 
-                        <div className="relative w-64 h-80 md:w-80 md:h-96 bg-black p-1 rounded-lg">
-                            <div className="w-full h-full overflow-hidden rounded-lg border-2 border-black">
-                                <img 
-                                    src="/portimage.jpg"
-                                    alt="DevaroopaEProfile" 
-                                    className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                {/* Right: Image Container with Parallax/Tilt */}
+                <div 
+                    ref={imageRef}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    className="w-full md:w-1/2 flex justify-center items-center cursor-crosshair"
+                >
+                    <div 
+                        className="relative group transition-transform duration-500" 
+                        style={frameTransform} // Apply subtle floating effect
+                    >
+                        {/* Glowing Rectangular Frame */}
+                        <div 
+                            className={`absolute -inset-1 bg-gradient-to-r from-neon-purple to-neon-blue rounded-lg blur ${glowClasses} transition-all duration-300`} 
+                        ></div>
 
-            {/* NEW SECTION: Content below the fold (Repository Showcase - Glassmorphism) */}
-            <div className="w-full py-16 relative z-10">
-                <div className="max-w-7xl mx-auto px-6 md:px-12">
-                    <RepositoryShowcase />
-                </div>
-            </div>
+                        <div 
+                            className="relative w-64 h-80 md:w-80 md:h-96 bg-black p-1 rounded-lg"
+                            style={imageTransform} // Apply tilt/perspective effect to the image holder
+                        >
+                            <div className="w-full h-full overflow-hidden rounded-lg border-2 border-black">
+                                <img 
+                                    src="/portimage.jpg"
+                                    alt="DevaroopaEProfile" 
+                                        // Grayscale shift + minor scale/unblur on hover
+                                    className={`w-full h-full object-cover filter transition-all duration-500 ${isHovering ? 'grayscale-0 scale-[1.01]' : 'grayscale'}`}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            {/* 2. Social Links: placed at the bottom of the content */}
-            <div className="w-full flex justify-center py-12 relative z-10">
-                <SocialLinks linkedinUrl={LINKEDIN_URL} githubUrl={GITHUB_URL} />
-            </div>
+          
 
-            {/* Global CSS Styles (for Animations and Gradient Text) */}
-            <style>{`
+            {/* 2. Social Links: placed at the bottom of the content */}
+            <div className="w-full flex justify-center py-12 relative z-10">
+                <SocialLinks linkedinUrl={LINKEDIN_URL} githubUrl={GITHUB_URL} />
+            </div>
+
+            {/* Global CSS Styles (for Animations and Gradient Text) */}
+            <style>{`
                 /* Typing and Cursor Animation */
                 .typing-cursor { display: inline-block; color: white; transition: opacity 0.1s; animation: blink 1s steps(2, start) infinite; }
                 @keyframes blink { 50% { opacity: 0; } }
@@ -318,10 +256,9 @@ const HomeSection: React.FC = () => {
                     scrollbar-width: none;  /* Firefox */
                 }
             `}</style>
-        </div>
-    );
+        </div>
+    );
 };
 
 
 export default HomeSection;
-

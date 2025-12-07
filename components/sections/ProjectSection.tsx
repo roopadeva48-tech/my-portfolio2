@@ -46,7 +46,7 @@ const projects: Project[] = [
         link: "https://krishi-sakhi-innovix-yp7whczthex5zaachik6gu.streamlit.app/",
         repo: "https://github.com/roopadeva48-tech/Krishi-Sakthi-AI",
         tags: ["Python", "TensorFlow", "React", "FastAPI", "Computer Vision"],
-        imageUrl: 'public/krishi.jpg',
+        imageUrl: '/krishi.jpg',
         galleryImages: [
             '/krishi.jpg',
         ],
@@ -64,7 +64,7 @@ const projects: Project[] = [
         link: "https://roopadeva48-tech.github.io/N8n_chatbot/)",
         repo: "https://github.com/roopadeva48-tech/N8n_chatbot",
         tags: ["LangChain", "OpenAI", "Pinecone", "Next.js", "Vector DB"],
-        imageUrl: 'public/rag-pj.jpg',
+        imageUrl: '/rag-pj.jpg',
         galleryImages: [
             '/n8n2.png',
             '/n8n3.png',
@@ -83,7 +83,7 @@ const projects: Project[] = [
         link: "https://roopadeva48-tech.github.io/my-utility-toolkit/",
         repo: "https://github.com/roopadeva48-tech/my-utility-toolkit",
         tags: ["TypeScript", "Node.js", "Rust", "WebAssembly", "CLI"],
-        imageUrl: "public/uti-pj.jpg",
+        imageUrl: "/uti-pj.jpg",
         galleryImages: [
             '/utility2.png',
         ],

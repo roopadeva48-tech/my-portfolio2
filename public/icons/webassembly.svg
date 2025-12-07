@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
+  <rect rx="4" width="24" height="24" fill="#654FF0"/>
+  <g fill="#fff" opacity="0.95">
+    <rect x="6" y="6" width="12" height="12" rx="1"/>
+    <text x="50%" y="58%" font-family="Arial" font-size="6" text-anchor="middle" fill="#654FF0" font-weight="700">WASM</text>
+  </g>
+</svg>

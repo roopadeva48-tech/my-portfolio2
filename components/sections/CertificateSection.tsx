@@ -13,8 +13,8 @@ const certificates = [
     issuer: 'MongoDB', 
     date: 'June 25, 2025', 
     description: "Earned MongoDB Skill Badge demonstrating proficiency in MongoDB fundamentals.",
-    imageUrl: 'public/mangodb.jpg', 
-    fullUrl: 'public/mangodb.jpg'
+    imageUrl: '/mangodb.jpg', 
+    fullUrl: '/mangodb.jpg'
   },
   // 3. Generative AI Workshop (K.S.R. College of Engineering)
   { 
@@ -23,8 +23,8 @@ const certificates = [
     issuer: 'K.S.R. College of Engineering', 
     date: 'April 28 & 29, 2025', 
     description: "Participation in a two-day workshop on Generative AI and Large Language Models (LLMs).",
-    imageUrl: 'public/AI-ws-clg.jpg', 
-    fullUrl: 'public/AI-ws-clg.jpg' 
+    imageUrl: '/AI-ws-clg.jpg', 
+    fullUrl: '/AI-ws-clg.jpg' 
   },
  
   // 8. Debugging Competition (KSR College of Engineering)
@@ -34,8 +34,8 @@ const certificates = [
     issuer: 'KSR College of Engineering (CSE)', 
     date: 'August 9th, 2025', 
     description: "Awarded certificate in recognition of active engagement in the Debugging competition.",
-    imageUrl: 'public/KSR-deb.jpg', 
-    fullUrl: 'public/KSR-deb.jpg' 
+    imageUrl: '/KSR-deb.jpg', 
+    fullUrl: '/KSR-deb.jpg' 
   },
   // 9. Large Language Model Workshop (VIT)
   { 
@@ -44,8 +44,8 @@ const certificates = [
     issuer: 'Vellore Institute of Technology (VIT)', 
     date: 'October 30th, 2025', 
     description: "Participation in a one-day workshop on LLM in Generative AI with Research and Industry Applications.",
-    imageUrl: 'public/VIT-ws.jpg', 
-    fullUrl: 'public/VIT-ws.jpg' 
+    imageUrl: '/VIT-ws.jpg', 
+    fullUrl: '/VIT-ws.jpg' 
   },
   // 10. Yukta: 2K25 Paper Presentation
   { 
@@ -54,8 +54,8 @@ const certificates = [
     issuer: 'PSG Institute of Technology and Applied Research (CSE)', 
     date: 'March 15, 2025', 
     description: "Certificate of Appreciation for participation in the Paper Presentation event at Yukta(PSG): 2K25.",
-    imageUrl: 'public/psg.jpg', 
-    fullUrl: 'public/psg.jpg' 
+    imageUrl: '/psg.jpg', 
+    fullUrl: '/psg.jpg' 
   },
   // 11. UI/UX Workshop (Imagivite)
   { 
@@ -64,8 +64,8 @@ const certificates = [
     issuer: 'Imagivite Technology Private Limited', 
     date: 'July 20, 2025', 
     description: "Successfully completed an UI/UX workshop.",
-    imageUrl: 'public/imagitive.jpg', 
-    fullUrl: 'public/imagitive.jpg' 
+    imageUrl: '/imagitive.jpg', 
+    fullUrl: '/imagitive.jpg' 
   }
 ];
 // --- END: FULL CERTIFICATES DATA ---

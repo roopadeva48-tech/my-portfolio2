@@ -160,11 +160,26 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
                     {/* Technologies Used */}
                     <section>
                         <h4 className="text-lg font-semibold text-white uppercase tracking-widest">Technologies Used</h4>
-                        {/* ... (Technologies used section remains the same) ... */}
+                        <div className="flex flex-wrap gap-3 mt-3">
+                            {project.tags.map(tag => (
+                                <span key={tag} className="text-sm font-mono text-neon-blue border border-neon-blue/50 px-3 py-1 rounded bg-neon-blue/10">
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
                     </section>
 
                     {/* Links */}
-                    {/* ... (Links section remains the same) ... */}
+                    <div className="flex justify-start gap-8 pt-6 border-t border-slate-700/50">
+                         {/* Live Site Link */}
+                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white hover:text-neon-blue transition-colors font-medium">
+                            <GlobeIcon size={20} /> View Live Site
+                        </a>
+                        {/* Repository Link */}
+                        <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white hover:text-neon-pink transition-colors font-medium">
+                            <GitHubIcon size={20} /> GitHub Repository
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

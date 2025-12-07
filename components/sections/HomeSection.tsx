@@ -176,7 +176,7 @@ const HomeSection: React.FC = () => {
     // --- Configuration ---
     const LINKEDIN_URL = "YOUR_LINKEDIN_PROFILE_URL_HERE"; 
     const GITHUB_URL = "https://github.com/roopadeva48-tech";
-    const RESUME_FILE_PATH = "/Devaroopa_E_Resume.pdf"; 
+    const RESUME_FILE_PATH = "/Devaroopa_Resume.pdf"; 
     const fullName = 'Devaroopa E';
     
     // --- Typing Animation Logic (Kept Local) ---
@@ -324,3 +324,4 @@ const HomeSection: React.FC = () => {
 
 
 export default HomeSection;
+

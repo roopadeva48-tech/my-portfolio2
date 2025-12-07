@@ -1,118 +1,170 @@
-import React , { useState } from 'react';
-import TiltCard from '../TiltCard'; // Assuming TiltCard component is correctly imported
-import { Link } from 'react-router-dom'; 
-
+import React, { useState } from 'react';
+import { FaPython, FaJsSquare, FaReact, FaNodeJs, FaRust, FaDatabase, FaCode } from 'react-icons/fa';
+import { SiTypescript, SiNextdotjs, SiTensorflow, SiFastapi, SiOpenai, SiWebassembly } from 'react-icons/si';
+import TiltCard from '../TiltCard';
 import { X } from 'lucide-react'; 
+// Ensure X is imported from 'lucide-react' or similar.
 
+// =========================================================================
+// 1. TECHNOLOGY ICONS DEFINITION (Using placeholders for original icons)
+//    NOTE: In a real project, you must import the actual icon SVG components.
+// =========================================================================
 
-// --- Custom Icons (for consistent styling) ---
+// --- Helper Icons (Remaining as SVGs) ---
 const GlobeIcon = ({ size = 20, className = '' }) => (
     <svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 0 4 10 15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0-4-10 15.3 15.3 0 0 0 4-10zM2.5 12h19"/></svg>
 );
-
 const EyeIcon = ({ size = 20, className = '' }) => (
     <svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
 );
-
 const GitHubIcon = ({ size = 20, className = '' }) => (
     <svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.6.111.822-.257.822-.576v-2.222c-3.322.72-4.015-1.611-4.015-1.611-.543-1.378-1.328-1.74-1.328-1.74-1.09-.745.083-.729.083-.729 1.204.084 1.839 1.237 1.839 1.237 1.07 1.834 2.809 1.305 3.495.998.109-.776.419-1.305.762-1.604-2.665-.304-5.467-1.334-5.467-5.931 0-1.311.465-2.381 1.235-3.221-.135-.303-.54-1.523.104-3.176 0 0 1.006-.322 3.3 1.23.96-.268 1.98-.403 3-.403s2.04.135 3 .403c2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.911 1.23 3.221 0 4.597-2.802 5.624-5.475 5.92.42.36.81 1.096.81 2.22v3.259c0 .319.223.69.823.575C20.563 22.092 24 17.592 24 12c0-6.627-5.374-12-12-12z"/></svg>
 );
-// --- End Custom Icons ---
 
-// Define the Project type with all required details
+
+// --- Open Source Icon Placeholders for Spinning Tags ---
+const PythonIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="#3776AB"><path d="M14.25 1.5h-5.5v3h5.5zM8.75 19.5v3h5.5v-3zM3.17 10.5v-3h5.5v3zM15.33 10.5v-3h5.5v3z"/></svg>);
+const ReactIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="none" stroke="#61DAFB" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14"/></svg>);
+const TensorFlowIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="#FF6F00"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.92V14h3v-2h-3V6.08c2.91.43 5.17 2.97 5.17 5.92 0 3.31-2.69 6-6 6zm1-11.92V9h-3v2h3v2h-3v2h3v-2h-3V9h3V7h-3v4h-2V7H7v4h2v2H7v4h2v-4h4V7h-4V5c-2.91.43-5.17 2.97-5.17 5.92 0 3.31 2.69 6 6 6z"/></svg>);
+const FastAPIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="#009688"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.92V14h3v-2h-3V6.08c2.91.43 5.17 2.97 5.17 5.92 0 3.31-2.69 6-6 6zm1-11.92V9h-3v2h3v2h-3v2h3v-2h-3V9h3V7h-3v4h-2V7H7v4h2v2H7v4h2v-4h4V7h-4V5c-2.91.43-5.17 2.97-5.17 5.92 0 3.31 2.69 6 6 6z"/></svg>);
+const LangChainIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="none" stroke="#343C3A" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>);
+const OpenAIIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="#412991"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>);
+const PineconeIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="#00B0FF"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/></svg>);
+const NextJSIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9V7h2v10zm3 0h-2v-4h-2v4h-2V7h2v4h2V7h2v10z"/></svg>);
+const TypeScriptIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="#3178C6"><path d="M1.5 0h21v24H1.5zM6 8h12v2H6zm0 4h12v2H6zm0 4h7v2H6z"/></svg>);
+const NodeJSIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="#339933"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4 12h-3v-3h3v3zm-4 0H7v-3h5v3z"/></svg>);
+const RustIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="#DEA584"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-4 7h3v3H8V9zm5 0h3v3h-3V9zm-5 5h3v3H8v-3zm5 0h3v3h-3v-3z"/></svg>);
+const WebAssemblyIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="#654FF0"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.92V14h3v-2h-3V6.08c2.91.43 5.17 2.97 5.17 5.92 0 3.31-2.69 6-6 6zm1-11.92V9h-3v2h3v2h-3v2h3v-2h-3V9h3V7h-3v4h-2V7H7v4h2v2H7v4h2v-4h4V7h-4V5c-2.91.43-5.17 2.97-5.17 5.92 0 3.31 2.69 6 6 6z"/></svg>);
+const CodeIcon = (props: any) => (<svg {...props} viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>);
+
+
+const TechIcons: { [key: string]: React.FC<any> } = {
+    Python: PythonIcon,
+    TensorFlow: TensorFlowIcon,
+    React: ReactIcon,
+    FastAPI: FastAPIcon,
+    LangChain: LangChainIcon,
+    OpenAI: OpenAIIcon,
+    Pinecone: PineconeIcon,
+    'Next.js': NextJSIcon,
+    TypeScript: TypeScriptIcon,
+    'Node.js': NodeJSIcon,
+    Rust: RustIcon,
+    WebAssembly: WebAssemblyIcon,
+    'Computer Vision': CodeIcon,
+    'Vector DB': CodeIcon,
+    CLI: CodeIcon,
+};
+
+// Return an icon component similar to SkillsSection (react-icons)
+const getIconForTag = (tag: string, props: any = {}) => {
+    const t = tag.toLowerCase();
+    switch (t) {
+        case 'python': return <FaPython {...props} />;
+        case 'javascript':
+        case 'js':
+        case 'javascript / react':
+            return <FaJsSquare {...props} />;
+        case 'react': return <FaReact {...props} />;
+        case 'typescript': return <SiTypescript {...props} />;
+        case 'node.js':
+        case 'nodejs':
+        case 'node': return <FaNodeJs {...props} />;
+        case 'next.js':
+        case 'nextjs': return <SiNextdotjs {...props} />;
+        case 'tensorflow': return <SiTensorflow {...props} />;
+        case 'fastapi': return <SiFastapi {...props} />;
+        case 'openai': return <SiOpenai {...props} />;
+        case 'pinecone': return <FaDatabase {...props} />;
+        case 'rust': return <FaRust {...props} />;
+        case 'webassembly': return <SiWebassembly {...props} />;
+        case 'computer vision': return <FaDatabase {...props} />;
+        case 'vector db': return <FaDatabase {...props} />;
+        default: return <FaCode {...props} />;
+    }
+};
+
+
+// =========================================================================
+// 2. PROJECT DATA (REPLICATED FOR COMPLETENESS)
+// =========================================================================
+
 type Project = {
     title: string;
     description: string;
-    fullDescription: string;
-    keyContributions: string[];
-    duration: string;
+    fullDescription: string; 
+    keyContributions: string[]; 
+    duration: string; 
     link: string;
-    repo: string;
+    repo: string; 
     tags: string[];
     imageUrl: string;
-    galleryImages: string[]; // <--- NEW FIELD
+    galleryImages: string[];
 }
+
 const projects: Project[] = [
     {
-        title: "Krishi Sakthi",
+        title: "Krishi Sakhi",
         description: "An AI-powered agricultural assistant helping farmers with crop disease detection.",
-        fullDescription: "A comprehensive AI system designed to assist local farmers. It utilizes custom-trained computer vision models (YOLO/Faster R-CNN) deployed via FastAPI to identify specific crop diseases from images. Additionally, it integrates a machine learning model to recommend the best soil treatments and crop rotation schedules based on local data and climate input.",
-        keyContributions: [
-            "Trained and fine-tuned YOLOv5 model for high-accuracy disease identification.",
-            "Developed the prediction API using FastAPI for scalable deployment.",
-            "Designed the data acquisition and labeling pipeline.",
-        ],
+        fullDescription: "A comprehensive AI system designed to assist local farmers. It utilizes custom-trained computer vision models  deployed via FastAPI to identify specific crop diseases from images. Additionally, it integrates a machine learning model to recommend the best soil treatments and crop rotation schedules based on local data and climate input.",
+        keyContributions: ["Trained and fine-tuned YOLOv5 model.", "Developed the prediction API using FastAPI.", "Designed the data acquisition and labeling pipeline."],
         duration: "Jan 2024 - May 2024 (4 Months)",
         link: "https://krishi-sakhi-innovix-yp7whczthex5zaachik6gu.streamlit.app/",
         repo: "https://github.com/roopadeva48-tech/Krishi-Sakthi-AI",
         tags: ["Python", "TensorFlow", "React", "FastAPI", "Computer Vision"],
-        imageUrl: '/krishi.jpg',
-        galleryImages: [
-            '/krishi.jpg',
-        ],
+           imageUrl: '/krishi.jpg',
+           galleryImages: ['/krishi.jpg'],
     },
     {
-        title: "RAG CHATBOT",
+        title: "Rag Chatbot",
         description: "Retrieval-Augmented Generation chatbot capable of ingesting custom documents.",
         fullDescription: "Built a fully functional RAG pipeline using LangChain for orchestration and Pinecone as the vector store. The chatbot can ingest PDF/DOCX documents, embed them using OpenAI models, and provide context-aware, highly accurate answers, eliminating external hallucinations.",
-        keyContributions: [
-            "Implemented LangChain chains for document parsing and retrieval.",
-            "Managed and queried Pinecone vector database.",
-            "Designed user interface in Next.js for seamless interaction."
-        ],
+        keyContributions: ["Implemented LangChain chains for document parsing and retrieval.", "Managed and queried Pinecone vector database.", "Designed user interface in Next.js for seamless interaction."],
         duration: "May 2024 - June 2024 (1.5 Months)",
-        link: "https://roopadeva48-tech.github.io/N8n_chatbot/)",
+        link: "https://roopadeva48-tech.github.io/N8n_chatbot/",
         repo: "https://github.com/roopadeva48-tech/N8n_chatbot",
         tags: ["LangChain", "OpenAI", "Pinecone", "Next.js", "Vector DB"],
-        imageUrl: '/rag-pj.jpg',
-        galleryImages: [
-            '/n8n2.png',
-            '/n8n3.png',
-        ],
+           imageUrl: '/rag-pj.jpg',
+           galleryImages: ['/n8n2.png', '/n8n3.png'],
     },
     {
-        title: "my-utility-toolkit",
+        title: "My Utility Toolkit",
         description: "A comprehensive CLI and Web toolkit for developers offering rapid data formatting.",
         fullDescription: "A practical toolkit developed using Rust and WebAssembly (Wasm) for performance-critical utilities like data formatting, regex validation, and binary file conversion. The web interface is built with TypeScript and Node.js to showcase Wasm integration for high-speed client-side processing.",
-        keyContributions: [
-            "Developed core utility functions in Rust for high performance.",
-            "Used WebAssembly (Wasm) to integrate Rust logic into the web UI.",
-            "Created CLI interface for command-line access to tools.",
-        ],
+        keyContributions: ["Developed core utility functions in Rust for high performance.", "Used WebAssembly (Wasm) to integrate Rust logic into the web UI.", "Created CLI interface for command-line access to tools."],
         duration: "Aug 2023 - Nov 2023",
         link: "https://roopadeva48-tech.github.io/my-utility-toolkit/",
         repo: "https://github.com/roopadeva48-tech/my-utility-toolkit",
         tags: ["TypeScript", "Node.js", "Rust", "WebAssembly", "CLI"],
-        imageUrl: "/uti-pj.jpg",
-        galleryImages: [
-            '/utility2.png',
-        ],
+           imageUrl: '/uti-pj.jpg',
+           galleryImages: ['/utility2.png'],
     }
 ];
-// --- Image Gallery Component ---
+
+
+// =========================================================================
+// 3. HELPER COMPONENTS (MODAL, GALLERY) - STYLING MODIFIED FOR ICONS ONLY
+// =========================================================================
 
 const ImageGallery: React.FC<{ images: string[], title: string }> = ({ images, title }) => {
     if (images.length === 0) return null;
-
     return (
         <section className="mt-4">
-            <h4 className="text-lg font-semibold text-white uppercase tracking-widest mb-3">Project Gallery</h4>
+            <h4 className="text-lg font-semibold text-white uppercase tracking-widest mb-3 border-b border-slate-700/50 pb-2">Project Gallery</h4>
             <div className="flex overflow-x-auto space-x-4 pb-3 scrollbar-hide">
                 {images.map((imgSrc, index) => (
                     <img 
                         key={index} 
                         src={imgSrc} 
                         alt={`${title} screenshot ${index + 1}`}
-                        className="w-80 h-48 flex-shrink-0 object-cover rounded-lg shadow-md border border-slate-700/50 transition-transform duration-300 hover:scale-[1.02]"
+                        className="w-80 h-48 flex-shrink-0 object-cover rounded-lg shadow-md border border-slate-700/50 transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
                     />
                 ))}
             </div>
-            {/* Note: You may need to add the scrollbar-hide utility to your global CSS */}
         </section>
     );
 };
 
-// --- Project Modal Component ---
 const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> = ({ project, onClose }) => {
     if (!project) return null;
 
@@ -123,7 +175,12 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
                 onClick={(e) => e.stopPropagation()} 
             >
                 {/* Close Button */}
-                {/* ... (Close button code remains the same) ... */}
+                <button 
+                    onClick={onClose} 
+                    className="absolute top-4 right-4 text-white hover:text-neon-pink z-20 transition-colors"
+                >
+                    <X size={24} />
+                </button>
 
                 {/* Modal Image/Header */}
                 <div className="h-48 w-full bg-gray-800 overflow-hidden relative">
@@ -134,20 +191,20 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
                 {/* Modal Content - Scrollable */}
                 <div className="p-6 md:p-8 space-y-6 overflow-y-auto">
                     
-                    {/* Title and Duration */}
-                    {/* ... (Title and duration section remains the same) ... */}
+                    <div className="border-b border-slate-700/50 pb-4">
+                        <h3 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
+                            {project.title}
+                        </h3>
+                        <p className="text-sm font-mono text-neon-pink mt-1">{project.duration}</p>
+                    </div>
 
-                    {/* Full Description */}
                     <section>
                         <h4 className="text-lg font-semibold text-white uppercase tracking-widest">Overview</h4>
                         <p className="text-gray-300 leading-relaxed mt-2">{project.fullDescription}</p>
                     </section>
 
-                    {/* NEW: Image Gallery Section */}
-
                     <ImageGallery images={project.galleryImages} title={project.title} />
 
-                    {/* Key Contributions */}
                     <section>
                         <h4 className="text-lg font-semibold text-white uppercase tracking-widest">My Key Contributions</h4>
                         <ul className="list-disc list-inside text-gray-400 pl-4 space-y-1 mt-2">
@@ -157,19 +214,18 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
                         </ul>
                     </section>
 
-                    {/* Technologies Used */}
                     <section>
                         <h4 className="text-lg font-semibold text-white uppercase tracking-widest">Technologies Used</h4>
+                        {/* MODAL ICONS: Rendered as circular badges without text */}
                         <div className="flex flex-wrap gap-3 mt-3">
                             {project.tags.map(tag => (
-                                <span key={tag} className="text-sm font-mono text-neon-blue border border-neon-blue/50 px-3 py-1 rounded bg-neon-blue/10">
-                                    {tag}
+                                <span key={tag} className="flex items-center text-sm font-mono text-neon-blue border border-neon-blue/50 p-3 rounded-full bg-neon-blue/10" title={tag}>
+                                    {getIconForTag(tag, { className: 'w-5 h-5' })}
                                 </span>
                             ))}
                         </div>
                     </section>
 
-                    {/* Links */}
                     <div className="flex justify-start gap-8 pt-6 border-t border-slate-700/50">
                          {/* Live Site Link */}
                         <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white hover:text-neon-blue transition-colors font-medium">
@@ -187,6 +243,10 @@ const ProjectModal: React.FC<{ project: Project | null; onClose: () => void }> =
 };
 
 
+// =========================================================================
+// 4. MAIN PROJECT SECTION COMPONENT (TAG RENDERING MODIFIED)
+// =========================================================================
+
 const ProjectSection: React.FC = () => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -200,14 +260,14 @@ const ProjectSection: React.FC = () => {
 
     return (
         <>
-            {/* Custom Modal Animation Style */}
+            {/* Custom CSS for Spinning Animation */}
             <style>{`
-                @keyframes scale-in {
-                    from { opacity: 0; transform: scale(0.9); }
-                    to { opacity: 1; transform: scale(1); }
+                @keyframes spin-slow {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
                 }
-                .animate-scale-in {
-                    animation: scale-in 0.3s ease-out forwards;
+                .group:hover .animate-spin-on-hover {
+                    animation: spin-slow 1.5s linear infinite;
                 }
             `}</style>
         
@@ -223,7 +283,7 @@ const ProjectSection: React.FC = () => {
                             {/* Visual Side (3D Tilt) - Clickable Image */}
                             <div className="w-full md:w-1/2 cursor-pointer" onClick={() => openModal(project)}>
                                 <TiltCard className="rounded-xl overflow-hidden shadow-3xl shadow-neon-blue/20 border border-neon-blue/30 bg-black/50 group">
-                                    <div className="relative h-72 w-full bg-gray-900 overflow-hidden"> 
+                                    <div className="relative h-72 w-full bg-gray-900 overflow-hidden">
                                         <img 
                                             src={project.imageUrl} 
                                             alt={project.title}
@@ -231,9 +291,7 @@ const ProjectSection: React.FC = () => {
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
                                     </div>
-                                    <div className="p-6 relative">
-                                        {/* Removed: Project Index Number */}
-                                    </div>
+                                    <div className="p-6 relative"></div>
                                 </TiltCard>
                             </div>
 
@@ -243,13 +301,17 @@ const ProjectSection: React.FC = () => {
                                     {project.title}
                                 </h3>
                                 <p className="text-gray-300 leading-relaxed text-md border-l-4 border-neon-pink/50 pl-4">
-                                    {/* Reduced content for primary view */}
                                     {project.description}
                                 </p>
                                 <div className="flex flex-wrap gap-2 pt-2">
+                                    {/* MODIFIED: Renders ICON only, in a circular badge, with hover spin */}
                                     {project.tags.map(tag => (
-                                        <span key={tag} className="text-xs font-mono text-neon-blue border border-neon-blue/50 px-2 py-1 rounded hover:bg-neon-blue/10 transition-colors">
-                                            {tag}
+                                        <span
+                                            key={tag}
+                                            className="group flex items-center text-xs font-mono text-neon-blue border border-neon-blue/50 p-2 rounded-full hover:bg-neon-blue/10 transition-colors cursor-default"
+                                            title={tag}
+                                        >
+                                            {getIconForTag(tag, { className: 'w-5 h-5 animate-spin-on-hover' })}
                                         </span>
                                     ))}
                                 </div>
@@ -289,8 +351,6 @@ const ProjectSection: React.FC = () => {
                         </div>
                     ))}
                 </div>
-                
-                {/* Removed: Repository Showcase (Secondary Section) */}
             </div>
 
             {/* Render Modal if a project is selected */}

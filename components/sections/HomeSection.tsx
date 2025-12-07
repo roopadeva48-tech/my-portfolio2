@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import ContactSection from './ContactSection';
 // =========================================================================
 // 1. ICON COMPONENTS (EXISTING)
 // =========================================================================
@@ -13,7 +13,7 @@ const GithubIcon = () => (
 
 
 // =========================================================================
-// 2. NEW/MODIFIED FUNCTIONAL COMPONENTS (CTA & SOCIALS)
+// 2. FUNCTIONAL COMPONENTS (CTA, SOCIALS & MODIFIED SHOWCASE)
 // =========================================================================
 
 // --- Primary CTA Button (Download Resume) ---
@@ -31,10 +31,12 @@ const CTAButton: React.FC<{ href: string, label: string }> = ({ href, label }) =
     );
 };
 
-// --- Secondary CTA Button (Contact Me - Outline Style) ---
-const ContactOutlineButton: React.FC<{ onClick: () => void, label: string }> = ({ onClick, label }) => {
+// --- Secondary CTA Button (Contact Me) ---
+// Render as an anchor linking to the Contact section for better routing and graceful fallback.
+const ContactOutlineButton: React.FC<{ onClick?: () => void, label: string, href?: string }> = ({ onClick, label, href = '#contact' }) => {
     return (
-        <button
+        <a
+            href={href}
             onClick={onClick}
             aria-label={label}
             className="inline-block px-8 py-3 text-lg font-bold rounded-full transition-all duration-300 transform hover:scale-105 
@@ -42,7 +44,62 @@ const ContactOutlineButton: React.FC<{ onClick: () => void, label: string }> = (
                        focus:outline-none focus:ring-4 focus:ring-neon-purple/50 focus:ring-opacity-75"
         >
             {label}
-        </button>
+        </a>
+    );
+};
+
+// --- MODIFIED: Glassmorphism Repository Showcase Component ---
+const RepositoryShowcase: React.FC = () => {
+    const repos = [
+        { name: "Krishi-Sakthi-AI", lang: "Python", stars: "45", desc: "AI solution for crop disease detection and soil recommendation.", url: "YOUR_REPO_URL_1" },
+        { name: "Portfolio-RAG-Bot", lang: "Python/TS", stars: "22", desc: "Full-stack Retrieval-Augmented Generation chatbot.", url: "YOUR_REPO_URL_2" },
+        { name: "Stock-Trend-Forecaster", lang: "Python", stars: "15", desc: "LSTM network model for predictive stock analysis.", url: "YOUR_REPO_URL_3" },
+        { name: "Personal-Website-v3", lang: "React/TS", stars: "10", desc: "The source code for this very website.", url: "YOUR_REPO_URL_4" },
+    ];
+
+    return (
+        <div className="w-full mt-20 relative p-8 rounded-xl shadow-2xl bg-white/5 backdrop-blur-md border border-white/10">
+            <h4 className="text-2xl font-extrabold text-white mb-6 uppercase tracking-widest text-center">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-blue to-neon-pink">
+                    [ Featured Codebase ]
+                </span>
+            </h4>
+            
+            {/* Terminal Header Bar (Simplified for Glass style) */}
+            <div className="flex items-center gap-2 mb-4">
+                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span className="ml-2 text-xs text-gray-300 font-mono">user@devaroopa:~$ ls -l /projects/featured</span>
+            </div>
+
+            {/* Horizontal Scroll Container - Increased minimum size */}
+            <div className="flex overflow-x-auto space-x-6 pb-2 scrollbar-hide">
+                {repos.map((repo, index) => (
+                    <a 
+                        key={index} 
+                        href={repo.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        // Glass Card Style: Translucent background, subtle border, strong hover effect
+                        className="min-w-[320px] p-5 bg-black/30 border border-white/20 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.03] hover:border-neon-purple/80 hover:bg-black/50 group cursor-pointer"
+                    >
+                        <div className="flex items-center justify-between mb-2">
+                            <h5 className="font-extrabold text-xl text-neon-pink group-hover:text-neon-blue transition-colors">{repo.name}</h5>
+                            <span className="text-sm text-gray-400 flex items-center">
+                                {/* Star Icon */}
+                                <svg className="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                {repo.stars}
+                            </span>
+                        </div>
+                        <p className="text-sm text-gray-300 mb-3 font-mono">{repo.desc}</p>
+                        <span className="text-xs font-mono px-2 py-1 bg-neon-purple/30 text-white rounded">
+                            {repo.lang}
+                        </span>
+                    </a>
+                ))}
+            </div>
+        </div>
     );
 };
 
@@ -182,7 +239,7 @@ const HomeSection: React.FC = () => {
                         </p>
                     </div>
 
-                    {/* FIX: CTA Buttons - Using flex container for proper spacing */}
+                    {/* CTA Buttons - Flex container for proper spacing */}
                     <div className="flex flex-col sm:flex-row gap-4 pt-4"> 
                         <CTAButton 
                             href={RESUME_FILE_PATH} 
@@ -194,7 +251,6 @@ const HomeSection: React.FC = () => {
                             label="Contact Me"
                         />
                     </div>
-
                 </div>
 
                 {/* Right: Image */}
@@ -216,7 +272,14 @@ const HomeSection: React.FC = () => {
                 </div>
             </div>
 
-            {/* 2. Social Links: placed below the main viewport */}
+            {/* NEW SECTION: Content below the fold (Repository Showcase - Glassmorphism) */}
+            <div className="w-full py-16 relative z-10">
+                <div className="max-w-7xl mx-auto px-6 md:px-12">
+                    <RepositoryShowcase />
+                </div>
+            </div>
+
+            {/* 2. Social Links: placed at the bottom of the content */}
             <div className="w-full flex justify-center py-12 relative z-10">
                 <SocialLinks linkedinUrl={LINKEDIN_URL} githubUrl={GITHUB_URL} />
             </div>
@@ -244,6 +307,15 @@ const HomeSection: React.FC = () => {
                 }
                 .animate-float-slow {
                     animation: float-slow 20s ease-in-out infinite alternate; 
+                }
+                
+                /* Custom scrollbar hide for repository showcase (optional) */
+                .scrollbar-hide::-webkit-scrollbar {
+                    display: none; /* Safari and Chrome */
+                }
+                .scrollbar-hide {
+                    -ms-overflow-style: none;  /* IE and Edge */
+                    scrollbar-width: none;  /* Firefox */
                 }
             `}</style>
         </div>

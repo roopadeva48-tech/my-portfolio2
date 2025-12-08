@@ -332,7 +332,7 @@ const AboutSection: React.FC = () => {
         <div className="w-full max-w-7xl mx-auto p-6 md:p-12 z-10 relative">
             
             {/* BACKGROUND: Neural Network Visualization */}
-            <NeuralNetworkBackground />
+           
             
             <style>{`/* ... custom CSS styles ... */`}</style>
             
@@ -348,15 +348,6 @@ const AboutSection: React.FC = () => {
                     I am a driven technology enthusiast focusing on <strong>AI/ML and Data Science</strong>. My academic journey has been defined by consistent performance and a deep curiosity for how systems learn and evolve.
                 </p>
             </div>
-            
-            {/* 2. EDUCATION JOURNEY CARDS (SCROLL BLOCK) */}
-            <EducationCards />
-
-            {/* 3. CERTIFICATIONS SECTION (SCROLL BLOCK) */}
-            
-
-
-            {/* 4. FULL-WIDTH CHATBOT (SCROLL BLOCK) */}
             <FullWidthChatbot 
                 messages={messages}
                 inputValue={inputValue}
@@ -366,9 +357,18 @@ const AboutSection: React.FC = () => {
                 handleKeyDown={handleKeyDown}
                 messagesEndRef={messagesEndRef}
             />
+            {/* 2. EDUCATION JOURNEY CARDS (SCROLL BLOCK) */}
+            <EducationCards />
+
+            {/* 3. CERTIFICATIONS SECTION (SCROLL BLOCK) */}
+            
+
+
+            {/* 4. FULL-WIDTH CHATBOT (SCROLL BLOCK) */}
+            
             
             {/* 5. SCROLL UP PROMPT (Fixed Position) */}
-            <ScrollUpPrompt />
+            
         </div>
     );
 };

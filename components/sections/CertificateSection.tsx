@@ -13,8 +13,8 @@ const certificates = [
     issuer: 'MongoDB', 
     date: 'June 25, 2025', 
     description: "Earned MongoDB Skill Badge demonstrating proficiency in MongoDB fundamentals.",
-    imageUrl: '/mangodb.jpg', 
-    fullUrl: '/mangodb.jpg'
+    imageUrl: 'public/mangodb.jpg', 
+    fullUrl: 'public/mangodb.jpg'
   },
   // 3. Generative AI Workshop (K.S.R. College of Engineering)
   { 
@@ -23,8 +23,8 @@ const certificates = [
     issuer: 'K.S.R. College of Engineering', 
     date: 'April 28 & 29, 2025', 
     description: "Participation in a two-day workshop on Generative AI and Large Language Models (LLMs).",
-    imageUrl: '/AI-ws-clg.jpg', 
-    fullUrl: '/AI-ws-clg.jpg' 
+    imageUrl: 'public/AI-ws-clg.jpg', 
+    fullUrl: 'public/AI-ws-clg.jpg' 
   },
  
   // 8. Debugging Competition (KSR College of Engineering)
@@ -34,8 +34,8 @@ const certificates = [
     issuer: 'KSR College of Engineering (CSE)', 
     date: 'August 9th, 2025', 
     description: "Awarded certificate in recognition of active engagement in the Debugging competition.",
-    imageUrl: '/KSR-deb.jpg', 
-    fullUrl: '/KSR-deb.jpg' 
+    imageUrl: 'public/KSR-deb.jpg', 
+    fullUrl: 'public/KSR-deb.jpg' 
   },
   // 9. Large Language Model Workshop (VIT)
   { 
@@ -44,8 +44,8 @@ const certificates = [
     issuer: 'Vellore Institute of Technology (VIT)', 
     date: 'October 30th, 2025', 
     description: "Participation in a one-day workshop on LLM in Generative AI with Research and Industry Applications.",
-    imageUrl: '/VIT-ws.jpg', 
-    fullUrl: '/VIT-ws.jpg' 
+    imageUrl: 'public/VIT-ws.jpg', 
+    fullUrl: 'public/VIT-ws.jpg' 
   },
   // 10. Yukta: 2K25 Paper Presentation
   { 
@@ -54,8 +54,8 @@ const certificates = [
     issuer: 'PSG Institute of Technology and Applied Research (CSE)', 
     date: 'March 15, 2025', 
     description: "Certificate of Appreciation for participation in the Paper Presentation event at Yukta(PSG): 2K25.",
-    imageUrl: '/psg.jpg', 
-    fullUrl: '/psg.jpg' 
+    imageUrl: 'public/psg.jpg', 
+    fullUrl: 'public/psg.jpg' 
   },
   // 11. UI/UX Workshop (Imagivite)
   { 
@@ -64,8 +64,8 @@ const certificates = [
     issuer: 'Imagivite Technology Private Limited', 
     date: 'July 20, 2025', 
     description: "Successfully completed an UI/UX workshop.",
-    imageUrl: '/imagitive.jpg', 
-    fullUrl: '/imagitive.jpg' 
+    imageUrl: 'public/imagitive.jpg', 
+    fullUrl: 'public/imagitive.jpg' 
   }
 ];
 // --- END: FULL CERTIFICATES DATA ---
@@ -196,7 +196,11 @@ const CertificateSection: React.FC = () => {
       {/* 2. ORIGINAL CERTIFICATE LIST (After Moon Click) */}
       {isCertificatesVisible && (
           <div className="space-y-24">
-            <h2 className="text-4xl font-bold text-center mb-16 text-white">Certifications 🎓</h2>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-center uppercase tracking-wider text-white mb-6">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-purple to-neon-blue">
+                        CERTIFICATIONS
+                    </span>
+                </h1>
             {certificates.map((cert, index) => {
               // ... (The entire original map loop for displaying certificates goes here)
               const isRightAligned = index % 2 !== 0; 
@@ -262,7 +266,7 @@ const CertificateSection: React.FC = () => {
 												</svg>
 											</button>
 										</div>
-									</div>
+					       		</div>
                 </div>
               );
             })}

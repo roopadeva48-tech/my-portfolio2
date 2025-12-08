@@ -177,7 +177,7 @@ const FullWidthChatbot: React.FC<any> = ({
                     <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                     <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                     <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <span className="ml-2 text-xs text-gray-400 font-mono">portfolio_bot.n8n --workflow</span>
+                    <span className="ml-2 text-xs text-gray-400 font-mono">Personal Chatbot</span>
                 </div>
 
                 {/* Astronaut Greeting Header */}
@@ -311,7 +311,11 @@ const AboutSection: React.FC = () => {
             
             {/* 1. TOP BLOCK: Bio */}
             <div className="w-full space-y-8 animate-fade-in text-left relative z-20">
-                <h2 className="text-4xl font-bold text-neon-purple mb-4">About Me</h2> 
+                <h1 className="text-4xl md:text-5xl font-extrabold text-center uppercase tracking-wider text-white mb-6">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-purple to-neon-blue">
+                        ABOUT ME
+                    </span>
+                </h1>
                 
                 <p className="text-white leading-relaxed text-lg border-l-4 border-neon-purple pl-4"> 
                     I am a driven technology enthusiast focusing on <strong>AI/ML and Data Science</strong>. My academic journey has been defined by consistent performance and a deep curiosity for how systems learn and evolve.
@@ -322,7 +326,7 @@ const AboutSection: React.FC = () => {
             <EducationCards />
 
             {/* 3. CERTIFICATIONS SECTION (SCROLL BLOCK) */}
-            <CertificationsSection />
+           
 
             {/* 4. FULL-WIDTH CHATBOT (SCROLL BLOCK) */}
             <FullWidthChatbot 

@@ -14,7 +14,7 @@ type Education = {
 }
 
 // Constants
-const N8N_WEBHOOK_URL = "https://ak356.app.n8n.cloud/webhook/d565dc1a-6dc4-462e-b1c1-f041d802b9f5/chat";
+const N8N_WEBHOOK_URL = "https://ak365.app.n8n.cloud/webhook/d565dc1a-6dc4-462e-b1c1-f041d802b9f5/chat";
 
 const educationData: Education[] = [
     {
@@ -346,4 +346,5 @@ const AboutSection: React.FC = () => {
         </div>
     );
 };
+
 export default AboutSection;

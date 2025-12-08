@@ -268,14 +268,10 @@ const ScrollUpPrompt: React.FC = () => {
 };
 
 
-// =========================================================================
-// 3. MAIN COMPONENT (INTEGRATING ALL CHANGES)
-// =========================================================================
-
 const AboutSection: React.FC = () => {
-    // Chatbot State and Handlers (kept the same)
+    // Chatbot State 
     const [messages, setMessages] = useState<{role: 'user' | 'bot', text: string}[]>([
-        { role: 'bot', text: "Hello! I'm Devaroopa's AI assistant. I can answer questions about his skills, projects, and background using a RAG pipeline connected to my portfolio data." }
+        { role: 'bot', text: "Chatbelow To Know About Devaroopa." }
     ]);
     const [inputValue, setInputValue] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -284,9 +280,53 @@ const AboutSection: React.FC = () => {
     const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
     useEffect(() => { scrollToBottom(); }, [messages]);
 
-    // --- Handlers (Simplified existing logic) ---
-    const handleSendMessage = async () => { /* ... */ };
-    const handleKeyDown = (e: React.KeyboardEvent) => { /* ... */ };
+    // --- RESTORED N8N API/Error Handling Logic ---
+    const handleSendMessage = async () => {
+        if (!inputValue.trim()) return;
+
+        const userMessage = inputValue;
+        setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
+        setInputValue("");
+        setIsLoading(true);
+
+        try {
+            // 1. Attempt to connect to the real N8N webhook
+            const response = await fetch(N8N_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chatInput: userMessage })
+            });
+            
+            // Handle non-200 responses (e.g., N8N workflow error)
+            if (!response.ok) {
+                throw new Error(`N8N API failed with status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            // Assuming N8N returns { output: "text response" }
+            const botReply = data.output || "I received a response, but it was empty. Check the N8N workflow's return format.";
+
+            setMessages(prev => [...prev, { role: 'bot', text: botReply }]);
+
+        } catch (error) {
+            console.error("Chatbot Connection Error:", error);
+            // Fallback error message if API fails
+            setMessages(prev => [...prev, { 
+                role: 'bot', 
+                text: "❌ Connection Error: I couldn't reach the N8N knowledge base. Please ensure the webhook is active and check CORS settings." 
+            }]);
+        }
+        
+        setIsLoading(false);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSendMessage();
+        }
+    };
+
 
     return (
         <div className="w-full max-w-7xl mx-auto p-6 md:p-12 z-10 relative">
@@ -294,20 +334,7 @@ const AboutSection: React.FC = () => {
             {/* BACKGROUND: Neural Network Visualization */}
             <NeuralNetworkBackground />
             
-            <style>{`
-                /* Custom CSS for Chatbot Background Animation and Scroll Prompt */
-                @keyframes ping-slow { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
-                .animate-ping-slow { animation: ping-slow 4s cubic-bezier(0, 0, 0.2, 1) infinite; }
-                @keyframes pulse-slow { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-                .animate-pulse-slow { animation: pulse-slow 5s ease-in-out infinite alternate; }
-                @keyframes bounce-slow { 0%, 100% { transform: translateY(-10%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); } 50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); } }
-                .animate-bounce-slow { animation: bounce-slow 1.5s infinite; }
-                /* Floating Animation (for Neural Network Nodes) */
-                @keyframes float-slow {
-                    0% { transform: translate(0, 0); } 50% { transform: translate(20px, 10px); } 100% { transform: translate(0, 0); }
-                }
-                .animate-float-slow { animation: float-slow 20s ease-in-out infinite alternate; }
-            `}</style>
+            <style>{`/* ... custom CSS styles ... */`}</style>
             
             {/* 1. TOP BLOCK: Bio */}
             <div className="w-full space-y-8 animate-fade-in text-left relative z-20">
@@ -321,30 +348,28 @@ const AboutSection: React.FC = () => {
                     I am a driven technology enthusiast focusing on <strong>AI/ML and Data Science</strong>. My academic journey has been defined by consistent performance and a deep curiosity for how systems learn and evolve.
                 </p>
             </div>
-            
-            {/* 2. EDUCATION JOURNEY CARDS (SCROLL BLOCK) */}
-            <EducationCards />
+            
+            {/* 2. EDUCATION JOURNEY CARDS (SCROLL BLOCK) */}
+            <EducationCards />
 
-            {/* 3. CERTIFICATIONS SECTION (SCROLL BLOCK) */}
-           
+            {/* 3. CERTIFICATIONS SECTION (SCROLL BLOCK) */}
+            
 
-            {/* 4. FULL-WIDTH CHATBOT (SCROLL BLOCK) */}
-            <FullWidthChatbot 
-                messages={messages}
-                inputValue={inputValue}
-                setInputValue={setInputValue}
-                isLoading={isLoading}
-                handleSendMessage={handleSendMessage}
-                handleKeyDown={handleKeyDown}
-                messagesEndRef={messagesEndRef}
-            />
-            
-            {/* REMOVED: 5. MISSION STATEMENT (Conclusion) */}
 
-            {/* 6. SCROLL UP PROMPT (Fixed Position) */}
-            <ScrollUpPrompt />
+            {/* 4. FULL-WIDTH CHATBOT (SCROLL BLOCK) */}
+            <FullWidthChatbot 
+                messages={messages}
+                inputValue={inputValue}
+                setInputValue={setInputValue}
+                isLoading={isLoading}
+                handleSendMessage={handleSendMessage}
+                handleKeyDown={handleKeyDown}
+                messagesEndRef={messagesEndRef}
+            />
+            
+            {/* 5. SCROLL UP PROMPT (Fixed Position) */}
+            <ScrollUpPrompt />
         </div>
     );
 };
-
 export default AboutSection;

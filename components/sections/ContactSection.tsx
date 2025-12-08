@@ -175,7 +175,7 @@ const ContactSection = () => {
                             <InfoBlock Icon={MailIcon} title="Direct Email" value={CONTACT_DATA.email} detail="Click to copy email address." isCopyable={true} copyKey="email" />
                         </div>
                         
-                        <a href="YOUR_CALENDLY_LINK" target="_blank" rel="noopener noreferrer" className="mt-8 block text-center bg-transparent border border-neon-blue/50 text-neon-blue font-bold py-3 px-6 rounded-lg hover:bg-neon-blue/20 hover:text-white transition-all duration-300 uppercase tracking-widest text-sm">
+                        <a href="https://calendly.com/roopadeva48/30min" target="_blank" rel="noopener noreferrer" className="mt-8 block text-center bg-transparent border border-neon-blue/50 text-neon-blue font-bold py-3 px-6 rounded-lg hover:bg-neon-blue/20 hover:text-white transition-all duration-300 uppercase tracking-widest text-sm">
                             Schedule a 15-Min Briefing
                         </a>
                     </div>

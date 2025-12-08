@@ -272,9 +272,9 @@ const ProjectSection: React.FC = () => {
             `}</style>
         
             <div className="w-full max-w-7xl mx-auto p-6 md:p-12 z-10">
-                <h2 className="text-4xl font-bold text-center mb-16 text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue">
+                <h1 className="text-4xl font-bold text-center mb-16 text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue">
                     Featured Projects
-                </h2>
+                </h1>
                 
                 <div className="space-y-28">
                     {projects.map((project, index) => (

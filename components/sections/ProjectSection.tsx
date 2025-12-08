@@ -273,7 +273,7 @@ const ProjectSection: React.FC = () => {
         
             <div className="w-full max-w-7xl mx-auto p-6 md:p-12 z-10">
                 <h1 className="text-4xl font-bold text-center mb-16 text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-blue">
-                    Featured Projects
+                    FEATURES PROJECTS
                 </h1>
                 
                 <div className="space-y-28">

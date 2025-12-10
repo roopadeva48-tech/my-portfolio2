@@ -9,9 +9,9 @@ import { FaPython, FaJs, FaJava, FaDatabase, FaCode, FaRobot, FaFigma, FaHtml5 }
 // Reframed Stats for a Student Profile
 const STATS = [
     { id: 1, value: 2, label: 'Years in Tech Study', suffix: '+' },
-    { id: 2, value: 130, label: 'GitHub Commits', suffix: '+' },
+    { id: 2, value: 135, label: 'GitHub Commits', suffix: '+' },
     { id: 3, value: 3, label: 'Projects / Demos Built', suffix: '' },
-    { id: 4, value: 100, label: 'Technical Skills Gained', suffix: '%' },
+    { id: 4, value: 80, label: 'Technical Skills Gained', suffix: '%' },
 ];
 
 interface AnimatedStatProps {
@@ -241,3 +241,4 @@ const SkillsSection: React.FC = () => {
 
 
 export default SkillsSection;
+

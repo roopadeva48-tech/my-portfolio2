@@ -6,7 +6,6 @@ import { FaPython, FaJs, FaJava, FaDatabase, FaCode, FaRobot, FaFigma, FaHtml5 }
 // 1. STATS DATA & ANIMATION LOGIC (Reframed and Optimized)
 // =========================================================================
 
-// Reframed Stats for a Student Profile
 const STATS = [
     { id: 1, value: 2, label: 'Years in Tech Study', suffix: '+' },
     { id: 2, value: 135, label: 'GitHub Commits', suffix: '+' },
@@ -241,4 +240,5 @@ const SkillsSection: React.FC = () => {
 
 
 export default SkillsSection;
+
 

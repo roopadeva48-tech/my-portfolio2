@@ -14,6 +14,8 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
   const gltf = useGLTF('/astronaut.glb');
   const astronautRef = useRef<THREE.Group>(null!);
   const moonRef = useRef<THREE.Mesh>(null!);
+  const materialsRef = useRef<any[]>([]);
+  const handNodesRef = useRef<THREE.Object3D[]>([]);
   
   // States for game logic
   const [dialogue, setDialogue] = useState<string>(""); // Initial dialogue for astronaut starts empty
@@ -23,14 +25,28 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
 
   // Apply colorful material to the astronaut
   useEffect(() => {
+    // Traverse the loaded scene and collect original materials and hand nodes.
+    // We intentionally DO NOT replace materials so the model keeps its authored colors.
     gltf.scene.traverse((object) => {
-      if (object instanceof THREE.Mesh) {
-        // You can customize the color here, e.g., using a random color or a specific theme color
-        object.material = new THREE.MeshStandardMaterial({
-          color: new THREE.Color(0x8a2be2), // A vibrant blue-violet color
-          roughness: 0.7,
-          metalness: 0.2
+      if ((object as any).isMesh) {
+        const mesh = object as THREE.Mesh;
+        const mat = mesh.material as any;
+        // Store references to original materials and their original color/emissive values
+        materialsRef.current.push({
+          mat,
+          originalColor: mat && mat.color ? mat.color.clone() : null,
+          originalEmissive: mat && mat.emissive ? mat.emissive.clone() : null,
+          originalEmissiveIntensity: mat && typeof mat.emissiveIntensity !== 'undefined' ? mat.emissiveIntensity : 0,
         });
+
+        // If the mesh name contains "hand" (case-insensitive), track it for animation
+        if (mesh.name && /hand/i.test(mesh.name)) {
+          handNodesRef.current.push(mesh);
+        }
+      }
+      // Also check bones/nodes for names containing 'hand'
+      if (object.name && /hand/i.test(object.name) && !((object as any).isMesh)) {
+        handNodesRef.current.push(object as THREE.Object3D);
       }
     });
   }, [gltf.scene]);
@@ -81,14 +97,48 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
         const targetY = 0.5;
         const speed = 0.01;
         
+        // Smoothly interpolate position towards the target for an entrance movement
         astronautRef.current.position.x += (targetX - astronautRef.current.position.x) * speed;
         astronautRef.current.position.y += (targetY - astronautRef.current.position.y) * speed;
+        astronautRef.current.position.z += (0 - astronautRef.current.position.z) * (speed * 0.6);
+
+        // Slight scale up during movement for a popping entrance (smaller overall size)
+        const targetScale = new THREE.Vector3(0.7, 0.7, 0.7);
+        astronautRef.current.scale.lerp(targetScale, 0.02);
+
+        // Gently tint original materials toward neutral astronaut suit colors (off-white/gray)
+        const colorTarget = new THREE.Color(0xf0f0f0); // off-white suit
+        const emissiveTarget = new THREE.Color(0x0a0a0a); // subtle dark emissive for seams/panels
+        materialsRef.current.forEach((entry) => {
+          const m = entry && entry.mat;
+          if (m && m.color) {
+            m.color.lerp(colorTarget, 0.01);
+          }
+          if (m && m.emissive) {
+            m.emissive.lerp(emissiveTarget, 0.008);
+            m.emissiveIntensity = THREE.MathUtils.lerp(m.emissiveIntensity ?? 0, 0.03, 0.01);
+          }
+        });
 
         // Stop moving once close to the target position
         if (astronautRef.current.position.distanceTo(new THREE.Vector3(targetX, targetY, 0)) < 0.1) {
+          // Arrival: small bounce/pulse
+          astronautRef.current.scale.set(1, 1, 1);
           setAstronautState('idle');
         }
       }
+    }
+
+    // Animate hands (swing / wave) if we found any hand nodes
+    if (handNodesRef.current.length > 0) {
+      const handSwing = Math.sin(t * 3.0) * 0.35; // radians
+      handNodesRef.current.forEach((hand, i) => {
+        // Alternate direction for left/right hands when possible
+        const direction = i % 2 === 0 ? 1 : -1;
+        // Apply a small rotation around X and Z to simulate waving/movement
+        hand.rotation.x = THREE.MathUtils.lerp(hand.rotation.x, handSwing * direction * 0.6, 0.1);
+        hand.rotation.z = THREE.MathUtils.lerp(hand.rotation.z, handSwing * direction * 0.2, 0.08);
+      });
     }
 
     // Moon glow/distortion animation on hover
@@ -133,7 +183,7 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
         <sphereGeometry args={[1.5, 32, 32]} />
         {/* Use MeshDistortMaterial for the glow/distortion effect */}
         <MeshDistortMaterial
-            color={isHoveringMoon ? '#b12f9fff' : '#239cccff'} // Changed moon base color to Cyan
+            color={isHoveringMoon ? '#b12f9fff' : '#059edbff'} // Changed moon base color to Cyan
             distort={0}
             speed={2}
             roughness={0.9}
@@ -146,10 +196,10 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
      
 
       {/* Background Stars (from Drei) */}
-      <Stars radius={100} depth={50} count={1000} factor={4} saturation={0} fade speed={1} />
+      
       
       {/* Lights - Added a general directional light for better visibility of the astronaut */}
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={1} />
       <directionalLight position={[0, 10, 5]} intensity={1} color={0xffffff} /> {/* Main light */}
       <directionalLight position={[5, 5, -5]} intensity={0.5} color={0xffffff} /> {/* Secondary light */}
 
@@ -172,6 +222,7 @@ const AstronautScene: React.FC<MoonGateProps> = ({ onMoonClick }) => {
                   {dialogue}
               </div>
             )}
+             
         </Html>
       </group>
     </>
@@ -183,6 +234,7 @@ const MoonGate: React.FC<MoonGateProps> = (props) => {
     return (
         <div className="w-full h-full absolute inset-0">
             <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+              
               
                 <AstronautScene {...props} />
             </Canvas>

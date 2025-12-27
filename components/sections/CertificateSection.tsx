@@ -236,12 +236,7 @@ const CertificateSection: React.FC = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
                       </div>
 
-                      <div className="p-6 relative">
-                        {/* Certificate Number Indicator (Repositioned for consistent look) */}
-                        <div className="absolute -top-10 right-6 w-12 h-12 bg-neon-pink rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-neon-pink/40"> 
-                          {index + 1}
-                        </div>
-                      </div>
+                     
                     </TiltEffect>
                   </div>
 
@@ -286,3 +281,4 @@ const CertificateSection: React.FC = () => {
 };
 
 export default CertificateSection;
+

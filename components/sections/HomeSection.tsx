@@ -105,7 +105,7 @@ const HomeSection: React.FC = () => {
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (imageRef.current) {
             const rect = imageRef.current.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
+            const centerX = rect.left + rect.width / 3;
             const centerY = rect.top + rect.height / 2;
             const offsetX = (e.clientX - centerX) / (rect.width / 2);
             const offsetY = (e.clientY - centerY) / (rect.height / 2);

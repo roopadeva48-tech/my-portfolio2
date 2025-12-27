@@ -235,8 +235,6 @@ const CertificateSection: React.FC = () => {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
                       </div>
-
-                     
                     </TiltEffect>
                   </div>
 
@@ -281,4 +279,3 @@ const CertificateSection: React.FC = () => {
 };
 
 export default CertificateSection;
-

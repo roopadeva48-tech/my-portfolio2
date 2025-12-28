@@ -1,13 +1,13 @@
-// StatsSection.tsx
+
 
 import React from 'react';
 import AnimatedStat from './AnimatedStat'; // Import the new component
 
 const STATS = [
-    { id: 1, value: 4, label: 'Years of Experience', suffix: '+' },
-    { id: 2, value: 1500, label: 'Lines of Code Written', suffix: 'k+' },
-    { id: 3, value: 7, label: 'Major Projects Completed', suffix: '' },
-    { id: 4, value: 99, label: 'Client Satisfaction Rate', suffix: '%' },
+    { id: 1, value: 2, label: 'Years of Experience', suffix: '+' },
+    { id: 2, value: 140, label: 'Github Commits', suffix: '+' },
+    { id: 3, value: 2, label: 'Major Projects Completed', suffix: '' },
+    { id: 4, value: 80, label: 'Knowledge Gained ', suffix: '%' },
 ];
 
 const StatsSection: React.FC = () => {

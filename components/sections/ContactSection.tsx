@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import emailjs from 'emailjs-com'; // Import EmailJS library
 
-// Define the static contact data
+
 const CONTACT_DATA = {
     email: "roopadeva48@gmail.com",
     phone: "9566426085",

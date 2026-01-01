@@ -1,12 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import ChatWidget from '../ChatWidget'; 
-import AboutSection from './AboutSection'; 
-import MoonGate from '../MoonGate';
-import GradientText from '../GradientText'; // Ensure path is correct
+import React, { useState, useRef } from 'react';
+import GradientText from '../GradientText'; 
+import MoonGate from '../MoonGate'; // 3D Astronaut
 
-// --- START: FULL CERTIFICATES DATA (All 11 Certificates) ---
+// ... (Certificates Data remains the same) ...
 const certificates = [
-  // 2. MongoDB Basics for Students
   { 
     id: 1, 
     title: 'MongoDB Basics for Students', 
@@ -16,7 +13,6 @@ const certificates = [
     imageUrl: '/mangodb.jpg', 
     fullUrl: '/mangodb.jpg'
   },
-  // 3. Generative AI Workshop (K.S.R. College of Engineering)
   { 
     id: 2, 
     title: 'Workshop: Generative AI & Large Language Models', 
@@ -26,8 +22,6 @@ const certificates = [
     imageUrl: '/AI-ws-clg.jpg', 
     fullUrl: '/AI-ws-clg.jpg' 
   },
- 
-  // 8. Debugging Competition (KSR College of Engineering)
   { 
     id:3, 
     title: 'Debugging Competition Participation', 
@@ -37,7 +31,6 @@ const certificates = [
     imageUrl: '/KSR-deb.jpg', 
     fullUrl: '/KSR-deb.jpg' 
   },
-  // 9. Large Language Model Workshop (VIT)
   { 
     id: 4, 
     title: 'Workshop on Large Language Model in Generative AI', 
@@ -47,7 +40,6 @@ const certificates = [
     imageUrl: '/VIT-ws.jpg', 
     fullUrl: '/VIT-ws.jpg' 
   },
-  // 10. Yukta: 2K25 Paper Presentation
   { 
     id: 5, 
     title: 'Paper Presentation Participation (YUKTA: 2K25)', 
@@ -57,7 +49,6 @@ const certificates = [
     imageUrl: '/psg.jpg', 
     fullUrl: '/psg.jpg' 
   },
-  // 11. UI/UX Workshop (Imagivite)
   { 
     id: 6, 
     title: 'UI/UX Workshop', 
@@ -68,13 +59,12 @@ const certificates = [
     fullUrl: '/imagitive.jpg' 
   }
 ];
-// --- END: FULL CERTIFICATES DATA ---
 
-// --- Tilt Logic Component (Unchanged) ---
+// ... (TiltEffect and ImageModal components remain unchanged) ...
 interface TiltProps {
   children: React.ReactNode;
   className?: string;
-  onClick: () => void; // Added onClick prop to the TiltEffect
+  onClick: () => void;
 }
 
 const TiltEffect: React.FC<TiltProps> = ({ children, className, onClick }) => {
@@ -84,14 +74,13 @@ const TiltEffect: React.FC<TiltProps> = ({ children, className, onClick }) => {
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!tiltRef.current) return;
-
     const rect = tiltRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left; // X position within the element.
-    const y = e.clientY - rect.top;  // Y position within the element.
+    const x = e.clientX - rect.left; 
+    const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = ((centerY - y) / centerY) * 10; // Max rotation 10deg
-    const rotateY = ((x - centerX) / centerX) * 10;  // Max rotation 10deg
+    const rotateX = ((centerY - y) / centerY) * 10;
+    const rotateY = ((x - centerX) / centerX) * 10;
 
     setTransformStyle({
       transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
@@ -99,16 +88,14 @@ const TiltEffect: React.FC<TiltProps> = ({ children, className, onClick }) => {
   };
 
   const handleMouseEnter = () => setIsHovering(true);
-
   const handleMouseLeave = () => {
     setIsHovering(false);
     setTransformStyle({
       transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
-      transition: 'transform 0.5s ease', // Smoothly reset
+      transition: 'transform 0.5s ease',
     });
   };
 
-  // The div now uses the onClick prop provided by the parent
   return (
     <div
       ref={tiltRef}
@@ -124,7 +111,6 @@ const TiltEffect: React.FC<TiltProps> = ({ children, className, onClick }) => {
   );
 };
 
-// --- Image Modal Component (Unchanged) ---
 const ImageModal: React.FC<{ imageUrl: string; title: string; onClose: () => void }> = ({ imageUrl, title, onClose }) => {
   return (
     <div 
@@ -153,16 +139,12 @@ const ImageModal: React.FC<{ imageUrl: string; title: string; onClose: () => voi
   );
 };
 
-// --- Certificate Section Main Component ---
-const CertificateSection: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<{ url: string, title: string } | null>(null);
-  // NEW STATE: Controls whether the 3D gate or the certificate list is shown
-  const [isCertificatesVisible, setIsCertificatesVisible] = useState(false); 
+interface CertificateSectionProps {
+    isUnlocked: boolean;
+}
 
-  // Function to show the actual certificates page (triggered by moon click)
-  const handleMoonClick = () => {
-      setIsCertificatesVisible(true);
-  };
+const CertificateSection: React.FC<CertificateSectionProps> = ({ isUnlocked }) => {
+  const [selectedImage, setSelectedImage] = useState<{ url: string, title: string } | null>(null);
   
   const handleImageClick = (fullUrl: string, title: string) => {
     setSelectedImage({ url: fullUrl, title: title });
@@ -173,31 +155,32 @@ const CertificateSection: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 md:p-12 z-10 relative">
+    <div className="w-full max-w-6xl mx-auto p-6 md:p-12 z-10 relative min-h-screen flex flex-col justify-center">
       
-      
-      {/* 1. INTERACTIVE 3D GATE (Initial View) */}
-      {!isCertificatesVisible && (
-          // Full screen overlay for the 3D scene
-          <div className="fixed inset-0 z-50">
-              <MoonGate onMoonClick={handleMoonClick} />
-              
-              {/* Overlay text for "Where is it?" */}
-              <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+      {/* 1. LOCKED VIEW */}
+      {!isUnlocked && (
+          // pointer-events-none on parent ensures clicks pass through to Background Moon
+          <div className="fixed inset-0 z-30 flex flex-col items-center justify-center pointer-events-none">
+             
+             {/* 3D Model: MoonGate handles its own pointer events (set to none) */}
+             <div className="w-full h-full max-h-[80vh] flex items-center justify-center">
+                {/* We pass an empty function or just the component, clicks are handled by Background */}
+                <MoonGate onMoonClick={() => {}} /> 
+             </div>
 
-                 <p className="text-5xl text-white font-extrabold" style={{ textShadow: '0 0 10px #b026ff, 0 0 5px #b026ff' }}>
-                    Where the Certificate?
+             {/* Hint Text Overlay: Explicitly pointer-events-none */}
+             <div className="absolute z-40 text-center space-y-4 bottom-20 md:bottom-32 pointer-events-none">
+                 <p className="text-4xl md:text-6xl text-white font-extrabold animate-pulse" style={{ textShadow: '0 0 20px #b026ff' }}>
+                    Where is the Certificate?
                   </p>
-
-              </div>
+                  <p className="text-xl text-gray-400">Hint: Catch the drifting Moon! 🌑</p>
+             </div>
           </div>
       )}
 
-      {/* 2. ORIGINAL CERTIFICATE LIST (After Moon Click) */}
-      {isCertificatesVisible && (
-          <div className="space-y-24">
-            
-            {/* UPDATED HEADER: Gradient Text Animation */}
+      {/* 2. UNLOCKED VIEW */}
+      {isUnlocked && (
+          <div className="space-y-24 animate-fade-in-up">
             <div className="text-center space-y-4 flex flex-col items-center mb-16">
                 <GradientText 
                     colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]} 
@@ -211,43 +194,31 @@ const CertificateSection: React.FC = () => {
             </div>
 
             {certificates.map((cert, index) => {
-              // ... (The entire original map loop for displaying certificates goes here)
               const isRightAligned = index % 2 !== 0; 
-              
-              const contentClass = isRightAligned 
-                ? 'md:text-right md:items-end' 
-                : 'md:text-left md:items-start';
-
-              const flexOrderClass = isRightAligned 
-                ? 'md:flex-row-reverse' 
-                : 'md:flex-row';
+              const contentClass = isRightAligned ? 'md:text-right md:items-end' : 'md:text-left md:items-start';
+              const flexOrderClass = isRightAligned ? 'md:flex-row-reverse' : 'md:flex-row';
 
               return (
                 <div 
                   key={cert.id} 
                   className={`flex flex-col md:flex-row items-start md:items-center gap-8 ${flexOrderClass}`}
                 >
-                  
-                  {/* Visual Side (Tilt Card) - MODIFIED TO MATCH PROJECT SIZE */}
                   <div className="w-full md:w-1/2">
                     <TiltEffect 
-                      className="rounded-xl overflow-hidden shadow-2xl shadow-neon-purple/20 border border-white/10 bg-black/50 group cursor-pointer w-full" // Removed fixed width/height
+                      className="rounded-xl overflow-hidden shadow-2xl shadow-neon-purple/20 border border-white/10 bg-black/50 group cursor-pointer w-full"
                       onClick={() => handleImageClick(cert.fullUrl || cert.imageUrl, cert.title)}
                     >
-                      {/* IMAGE CONTAINER: Uses h-64 for height consistency */}
                       <div className="relative h-64 w-full bg-gray-900 overflow-hidden"> 
                         <img 
                           src={cert.imageUrl} 
                           alt={cert.title}
-                            // object-cover ensures it fills the frame like projects
-                          className="w-full h-full object-cover transition-transform duration-500 opacity-80 group-hover:scale-110" // Added group-hover:scale-110
+                          className="w-full h-full object-cover transition-transform duration-500 opacity-80 group-hover:scale-110" 
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
                       </div>
                     </TiltEffect>
                   </div>
 
-                  {/* Content Side - Takes remaining space */}
                   <div className={`w-full md:w-1/2 space-y-3 flex flex-col ${contentClass}`}>
                         <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
                             {cert.title}
@@ -258,7 +229,6 @@ const CertificateSection: React.FC = () => {
                         <div className="mt-4">
                             <button
                                 aria-label={`View ${cert.title}`}
-                                title="View"
                                 onClick={() => handleImageClick(cert.fullUrl || cert.imageUrl, cert.title)}
                                 className="p-2 bg-neon-blue text-white rounded-md hover:brightness-110 transition flex items-center justify-center"
                             >
@@ -275,7 +245,7 @@ const CertificateSection: React.FC = () => {
           </div>
       )}
 
-      {/* Render the Modal if an image is selected */}
+      {/* Render Modal */}
       {selectedImage && (
         <ImageModal 
           imageUrl={selectedImage.url}
@@ -283,6 +253,11 @@ const CertificateSection: React.FC = () => {
           onClose={handleCloseModal} 
         />
       )}
+      
+      <style>{`
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      `}</style>
     </div>
   );
 };

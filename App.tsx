@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { SectionType } from './types'; // Use your shared types file
+import { SectionType } from './types'; 
 import Background from './components/Background';
 import ChatWidget from './components/ChatWidget';
-import Navbar from './components/Navbar.tsx'; // Import the new component
+import Navbar from './components/Navbar'; 
 
 import HomeSection from './components/sections/HomeSection';
 import CertificateSection from './components/sections/CertificateSection';
@@ -13,9 +13,9 @@ import ContactSection from './components/sections/ContactSection';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<SectionType>(SectionType.HOME);
+  const [certificateUnlocked, setCertificateUnlocked] = useState(false); // New state for game
   const mainContentRef = useRef<HTMLElement>(null);
 
-  // Existing useEffect: Handles hash change (URL anchor links)
   React.useEffect(() => {
     const mapHashToSection = (hash: string) => {
       switch ((hash || '').toLowerCase()) {
@@ -39,18 +39,24 @@ const App: React.FC = () => {
     return () => window.removeEventListener('hashchange', applyHash);
   }, []);
 
-  // Scroll Reset Fix: Resets scroll position when the active section changes
   React.useEffect(() => {
     if (mainContentRef.current) {
         mainContentRef.current.scrollTop = 0;
     }
   }, [activeSection]);
 
+  // Handler for Moon Click (Game Logic)
+  const handleMoonClick = () => {
+      if (activeSection === SectionType.CERTIFICATE) {
+          setCertificateUnlocked(true);
+      }
+  };
 
   const renderSection = () => {
     switch (activeSection) {
       case SectionType.HOME: return <HomeSection />;
-      case SectionType.CERTIFICATE: return <CertificateSection />;
+      case SectionType.CERTIFICATE: 
+        return <CertificateSection isUnlocked={certificateUnlocked} />;
       case SectionType.PROJECT: return <ProjectSection />;
       case SectionType.SKILLS: return <SkillsSection />;
       case SectionType.ABOUT: return <AboutSection />;
@@ -61,29 +67,26 @@ const App: React.FC = () => {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden font-sans text-white">
-      {/* Background Layer */}
-      <Background />
+      {/* Background Layer with Moon Click Handler */}
+      {/* Pass handler only if on Certificate page to avoid accidental clicks elsewhere */}
+      <Background onMoonClick={activeSection === SectionType.CERTIFICATE ? handleMoonClick : undefined} />
 
       {/* Main Content Area */}
       <main 
         ref={mainContentRef} 
         className="relative z-10 w-full h-full overflow-y-auto overflow-x-hidden pt-20 pb-20 md:pt-0 md:pb-0 md:pl-24"
       >
-        {/* Animated Transition Wrapper */}
         <div key={activeSection} className="min-h-full flex items-center justify-center animate-[fadeIn_0.5s_ease-out]">
           {renderSection()}
         </div>
       </main>
 
-      {/* Navigation Component */}
       <Navbar activeSection={activeSection} setActiveSection={setActiveSection} />
 
-      {/* Global Elements - CHAT WIDGET CONDITIONAL RENDERING APPLIED HERE */}
       {activeSection !== SectionType.ABOUT && (
         <ChatWidget onClick={() => setActiveSection(SectionType.ABOUT)} />
       )}
 
-      {/* Global Styles for Keyframes not in Tailwind config */}
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }

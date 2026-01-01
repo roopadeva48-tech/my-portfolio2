@@ -13,7 +13,7 @@ import ContactSection from './components/sections/ContactSection';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<SectionType>(SectionType.HOME);
-  const [certificateUnlocked, setCertificateUnlocked] = useState(false); // New state for game
+  const [certificateUnlocked, setCertificateUnlocked] = useState(false); 
   const mainContentRef = useRef<HTMLElement>(null);
 
   React.useEffect(() => {
@@ -45,7 +45,7 @@ const App: React.FC = () => {
     }
   }, [activeSection]);
 
-  // Handler for Moon Click (Game Logic)
+  // Handler for Moon Click
   const handleMoonClick = () => {
       if (activeSection === SectionType.CERTIFICATE) {
           setCertificateUnlocked(true);
@@ -65,11 +65,19 @@ const App: React.FC = () => {
     }
   };
 
+  // Logic for passing the moon click handler:
+  // 1. Must be on Certificate Section
+  // 2. Certificates must NOT be unlocked yet
+  const shouldMoonBeClickable = activeSection === SectionType.CERTIFICATE && !certificateUnlocked;
+
   return (
     <div className="relative w-screen h-screen overflow-hidden font-sans text-white">
-      {/* Background Layer with Moon Click Handler */}
-      {/* Pass handler only if on Certificate page to avoid accidental clicks elsewhere */}
-      <Background onMoonClick={activeSection === SectionType.CERTIFICATE ? handleMoonClick : undefined} />
+      {/* Background Layer */}
+      {/* KEY FIX: Pass undefined if shouldMoonBeClickable is false. 
+          This forces Background.tsx to switch isInteractive to false, dropping Z-index to 0. */}
+      <Background 
+        onMoonClick={shouldMoonBeClickable ? handleMoonClick : undefined} 
+      />
 
       {/* Main Content Area */}
       <main 

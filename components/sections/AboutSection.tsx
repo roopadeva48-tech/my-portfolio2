@@ -361,9 +361,10 @@ const AboutSection: React.FC = () => {
 
             </div>
 
-            <ScrollUpPrompt />
+            
         </div>
     );
 };
+
 
 export default AboutSection;

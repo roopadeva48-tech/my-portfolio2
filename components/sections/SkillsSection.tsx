@@ -2,12 +2,15 @@ import React, { JSX, useRef, useEffect, useState } from 'react';
 import { GitHubCalendar } from 'react-github-calendar';
 import { FaPython, FaJs, FaJava, FaDatabase, FaCode, FaRobot, FaFigma, FaHtml5 } from 'react-icons/fa';
 import GradientText from '../GradientText'; // Ensure path is correct
-
+
+// =========================================================================
+// 1. STATS DATA & OPTIMIZED COUNTER
+// =========================================================================
 const STATS = [
   { id: 1, value: 2, label: 'Years in Tech Study', suffix: '+' },
-  { id: 2, value: 140+, label: 'GitHub Commits', suffix: '+' },
-  { id: 3, value: 3, label: 'Projects / Demos Built', suffix: '' },
-  { id: 4, value: 80, label: 'Technical Skills Gained', suffix: '%' },
+  { id: 2, value: 680, label: 'GitHub Commits', suffix: '+' },
+  { id: 3, value: 7, label: 'Projects / Demos Built', suffix: '' },
+  { id: 4, value: 100, label: 'Technical Skills Gained', suffix: '%' },
 ];
 
 const AnimatedStat: React.FC<{ value: number; label: string; suffix?: string }> = ({ value, label, suffix = '' }) => {

@@ -8,7 +8,7 @@ import GradientText from '../GradientText'; // Ensure path is correct
 // =========================================================================
 const STATS = [
   { id: 1, value: 2, label: 'Years in Tech Study', suffix: '+' },
-  { id: 2, value: 150, label: 'GitHub Commits', suffix: '+' },
+  { id: 2, value: 140, label: 'GitHub Commits', suffix: '+' },
   { id: 3, value: 7, label: 'Projects / Demos Built', suffix: '' },
   { id: 4, value: 100, label: 'Technical Skills Gained', suffix: '%' },
 ];
@@ -172,4 +172,5 @@ const SkillsSection: React.FC = () => {
 };
 
 export default SkillsSection;
+
 

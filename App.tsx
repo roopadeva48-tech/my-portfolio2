@@ -3,7 +3,6 @@ import { SectionType } from './types';
 import Background from './components/Background';
 import ChatWidget from './components/ChatWidget';
 import Navbar from './components/Navbar'; 
-
 import HomeSection from './components/sections/HomeSection';
 import CertificateSection from './components/sections/CertificateSection';
 import ProjectSection from './components/sections/ProjectSection';

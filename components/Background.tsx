@@ -11,7 +11,7 @@ const Background: React.FC<BackgroundProps> = ({ onMoonClick }) => {
     left: `${Math.random() * 100}%`,
     size: `${Math.random() * 3 + 1}px`,
   }));
-
+  
   // Logic: If onMoonClick is passed, we are in "Game Mode"
   const isInteractive = !!onMoonClick;
 

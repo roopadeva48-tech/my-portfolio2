@@ -6,7 +6,6 @@ export enum SectionType {
   ABOUT = 'ABOUT',
   CONTACT = 'CONTACT'
 }
-
 export interface Project {
   title: string;
   description: string;

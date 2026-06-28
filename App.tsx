@@ -9,7 +9,6 @@ import ProjectSection from './components/sections/ProjectSection';
 import SkillsSection from './components/sections/SkillsSection';
 import AboutSection from './components/sections/AboutSection';
 import ContactSection from './components/sections/ContactSection';
-
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<SectionType>(SectionType.HOME);
   const [certificateUnlocked, setCertificateUnlocked] = useState(false); 

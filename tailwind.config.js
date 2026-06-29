@@ -1,5 +1,4 @@
 // tailwind.config.js
-
 module.exports = {
   // ... other configurations (content, plugins, etc.)
   theme: {

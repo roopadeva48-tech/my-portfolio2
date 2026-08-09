@@ -162,7 +162,7 @@ const HomeSection: React.FC = () => {
                     </h1>
 
                     <div className="space-y-2">
-                        <h3 className="text-2xl text-white font-bold">AI Developer</h3>
+                        <h3 className="text-2xl text-white font-bold">UI/UX Designer</h3>
                         <p className="text-gray-400 max-w-lg">
                             Crafting intelligent solutions through <strong>code</strong>. Passionate about turning <strong>raw data into actionable insights</strong> and building <strong>robust systems</strong>.
                         </p>

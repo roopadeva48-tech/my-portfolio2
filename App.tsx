@@ -39,8 +39,11 @@ const App: React.FC = () => {
 
   React.useEffect(() => {
     if (mainContentRef.current) {
-        mainContentRef.current.scrollTop = 0;
+      mainContentRef.current.scrollTop = 0;
     }
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [activeSection]);
 
   // Handler for Moon Click

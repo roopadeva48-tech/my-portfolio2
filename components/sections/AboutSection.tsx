@@ -17,7 +17,7 @@ const educationData: Education[] = [
     {
         institution: "KSR College of Engineering, Tiruchengode",
         degree: "Bachelor of Engineering",
-        score: "8.5 CGPA (Pursuing 3nd year)",
+        score: "8.55 CGPA (Pursuing 3rd year)",
         imagePlaceholder: "ksrimage.jpg"
     },
     {
@@ -155,7 +155,7 @@ const SideChatbot: React.FC<any> = ({
     isLoading,
     handleSendMessage,
     handleKeyDown,
-    messagesEndRef,
+    chatContainerRef,
 }) => {
     return (
         <div className="flex flex-col h-full bg-slate-900/90 border border-neon-blue/30 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-md sticky top-8 max-h-[85vh]">
@@ -179,7 +179,7 @@ const SideChatbot: React.FC<any> = ({
             </div>
             
             {/* Chat Area */}
-            <div className="flex-1 p-4 space-y-4 overflow-y-auto bg-black/20 font-mono text-sm relative scrollbar-thin scrollbar-thumb-neon-purple/30 scrollbar-track-transparent">
+            <div ref={chatContainerRef} className="flex-1 p-4 space-y-4 overflow-y-auto bg-black/20 font-mono text-sm relative scrollbar-thin scrollbar-thumb-neon-purple/30 scrollbar-track-transparent">
                 {/* Background Animation */}
                 <div className="absolute inset-0 opacity-5 pointer-events-none">
                     <div className="absolute w-2 h-2 rounded-full bg-neon-blue top-10 left-10 animate-pulse"></div>
@@ -203,7 +203,6 @@ const SideChatbot: React.FC<any> = ({
                         <span className="text-xs animate-pulse">Processing...</span>
                     </div>
                 )}
-                <div ref={messagesEndRef} />
             </div>
 
             {/* Input Area */}
@@ -260,10 +259,28 @@ const AboutSection: React.FC = () => {
     ]);
     const [inputValue, setInputValue] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const chatContainerRef = useRef<HTMLDivElement>(null);
 
-    const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
-    useEffect(() => { scrollToBottom(); }, [messages]);
+    // Scroll page to top on mount
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        const mainEl = document.querySelector('main');
+        if (mainEl) mainEl.scrollTop = 0;
+    }, []);
+
+    const scrollToBottom = () => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    };
+    
+    useEffect(() => { 
+        if (messages.length > 1) {
+            scrollToBottom(); 
+        }
+    }, [messages]);
 
     const handleSendMessage = async () => {
         if (!inputValue.trim()) return;
@@ -335,15 +352,12 @@ const AboutSection: React.FC = () => {
                         </div>
                         
                         <p className="text-gray-300 text-xl leading-loose border-l-4 border-neon-purple pl-8 py-4 bg-white/5 rounded-r-2xl"> 
-                            I am a driven technology enthusiast focusing on <strong className="text-white">AI/ML and Data Science</strong>. My academic journey has been defined by consistent performance and a deep curiosity for building intelligent systems.
+                            I am a motivated Computer Science student specializing in <strong className="text-white">UI/UX and Frontend Development</strong>. My focus is on crafting intuitive user-centric interfaces, responsive web workflows, and high-fidelity prototypes that bridge aesthetics with seamless functionality.
                         </p>
                     </div>
 
                     {/* Education */}
                     <EducationCards />
-
-                    {/* Certifications */}
-                    <CertificationsSection />
                 </div>
 
                 {/* --- RIGHT COLUMN (CHATBOT: 5/12 width) --- */}
@@ -355,7 +369,7 @@ const AboutSection: React.FC = () => {
                         isLoading={isLoading}
                         handleSendMessage={handleSendMessage}
                         handleKeyDown={handleKeyDown}
-                        messagesEndRef={messagesEndRef}
+                        chatContainerRef={chatContainerRef}
                     />
                 </div>
 

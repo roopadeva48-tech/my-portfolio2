@@ -9,7 +9,6 @@ type Education = {
     score: string;
     imagePlaceholder: string;
 }
-
 // Constants
 const N8N_WEBHOOK_URL = "https://ak365.app.n8n.cloud/webhook/d565dc1a-6dc4-462e-b1c1-f041d802b9f5/chat";
 

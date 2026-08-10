@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import emailjs from 'emailjs-com';
 import GradientText from '../GradientText'; // Ensure path is correct relative to components folder
-
 // Define the static contact data
 const CONTACT_DATA = {
     email: "roopadeva48@gmail.com",

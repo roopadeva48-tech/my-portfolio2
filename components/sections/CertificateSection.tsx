@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import GradientText from '../GradientText'; 
 import MoonGate from '../MoonGate'; // 3D Astronaut
-
 // ... (Certificates Data remains the same) ...
 const certificates = [
   { 

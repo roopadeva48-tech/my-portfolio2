@@ -2,7 +2,6 @@ import React, { JSX, useRef, useEffect, useState } from 'react';
 import { GitHubCalendar } from 'react-github-calendar';
 import { FaPython, FaJs, FaJava, FaDatabase, FaCode, FaRobot, FaFigma, FaHtml5 } from 'react-icons/fa';
 import GradientText from '../GradientText'; // Ensure path is correct
-
 // =========================================================================
 // 1. STATS DATA & OPTIMIZED COUNTER
 // =========================================================================
